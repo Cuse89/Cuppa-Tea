@@ -182,16 +182,16 @@ controller.init();
 
 
 document.getElementById('milk_amount').addEventListener('click', function() {
-  if (milk_amount.value === 'lots') {
+  if (this.value === 'lots') {
     document.querySelector('.tea').className = 'tea weak';
     document.querySelector('.ripple').className = 'ripple weak';
-  } else if (milk_amount.value === 'average') {
+  } else if (this.value === 'average') {
     document.querySelector('.tea').className = 'tea';
     document.querySelector('.ripple').className = 'ripple';
-  } else if (milk_amount.value === 'small') {
+  } else if (this.value === 'small') {
     document.querySelector('.tea').className = 'tea strong';
     document.querySelector('.ripple').className = 'ripple strong';
-  } else if (milk_amount.value === 'none') {
+  } else if (this.value === 'none') {
     document.querySelector('.tea').className = 'tea black';
     document.querySelector('.ripple').className = 'ripple black';
   }
