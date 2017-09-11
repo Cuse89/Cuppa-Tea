@@ -1,0 +1,108 @@
+body {
+	background: #737373;
+}
+
+.tea {
+  top: 100px;
+  left: 528px;
+	position: absolute;
+	width: 200px;
+	height: 200px;
+	border-radius: 50%;
+  background: #ca843b; /*tea centre*/
+	box-shadow:  0 0 0 10px #d0914f,
+							 0 0 0 35px #c5792a,
+							 0 150px 0 -45px #ca843b,
+							 110px 100px 0 -55px #ca843b,
+							 100px 170px 0 -30px #ca843b,
+							 0px 260px 0 -75px #ca843b,
+							 20px 310px 0 -85px #ca843b;
+}
+
+.tea.weak {
+  background: #f5c468;
+  box-shadow:  0 0 0 10px #f7ce81,
+							 0 0 0 35px #fbc155,
+							 0 150px 0 -45px #f5c468,
+							 110px 100px 0 -55px #f5c468,
+							 100px 170px 0 -30px #f5c468,
+							 0px 260px 0 -75px #f5c468,
+							 20px 310px 0 -85px #f5c468;
+}
+
+.tea.strong {
+  background: #94612c;
+  box-shadow:  0 0 0 10px #bb8246,
+							 0 0 0 35px #754818,
+							 0 150px 0 -45px #94612c,
+							 110px 100px 0 -55px #94612c,
+							 100px 170px 0 -30px #94612c,
+							 0px 260px 0 -75px #94612c,
+							 20px 310px 0 -85px #94612c;
+}
+
+.tea.black {
+  background: #23170a;
+  box-shadow:  0 0 0 10px #3c2915,
+							 0 0 0 35px #1d1206,
+							 0 150px 0 -45px #23170a,
+							 110px 100px 0 -55px #23170a,
+							 100px 170px 0 -30px #23170a,
+							 0px 260px 0 -75px #23170a,
+							 20px 310px 0 -85px #23170a;
+}
+
+
+.mug {
+  top: 72px;
+  left: 500px;
+	position: absolute;
+	width: 255px;
+	height: 255px;
+	border-radius: 50%;
+	box-shadow:	 0 0 0 20px #f9ddc4;
+}
+
+/* mug handle */
+
+.handle {
+
+	position: absolute;
+	background: #f9ddc4;
+	height: 50px;
+	width: 80px;
+	top: 175px;
+	left: 755px;
+	border-radius: 5px;
+}
+
+.ripple {
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	position: absolute;
+	border: 1px solid #c5792a;
+	left: 618px;
+	top: 190px;
+	/* a little bit of animation */
+	animation: rings 10s ease-out infinite;
+}
+
+@keyframes rings {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+	30% {
+		transform: scale(11);
+    opacity: 0;
+	}
+  100% {
+    transform: scale(11);
+    opacity: 0;
+  }
+}
+
+.ripple.weak {border-color: #fbc155;}
+.ripple.strong {border-color: #754818;}
+.ripple.black {border-color: #1d1206;}

@@ -16,6 +16,7 @@ CONTROLLER MODULE
 /* Sort data structure out, each variable in object e.g size, needs to be own object with 3 following functions - small, medium, large*/
 
 var timerController = (function() {
+  var seconds;
 
 
   var tea = {
@@ -74,30 +75,16 @@ var timerController = (function() {
       // 360000 + 105000 = 465000
       var time;
       time = 465000 - (timings[0] + timings[1] + timings[2] + timings[3] + timings[4] + timings[5])
+      console.log(time);
+      // time is in ms
       return time;
+
     },
-
-    startTimer: function(time) {
-      seconds = time / 1000;
-      var tm = setInterval(countDown,1000);
-      function countDown(){
-        seconds--;
-        if(seconds == 0){
-           clearInterval(tm);
-           alert('Your tea is ready to drink');
-        }
-        console.log(seconds);
-
-     }
-   },
-
 
 
 
 
   };
-
-
 
 
 })();
@@ -107,13 +94,14 @@ var timerController = (function() {
 var UIController = (function() {
 
   var DOMstrings = {
-    timer: 'timer',
+    setTimer: 'set_timer',
     cupType: 'cup_type',
     surface: 'surface',
     milk: 'milk',
     milkAmount: 'milk_amount',
     roomTemp: 'room_temp',
-    cupColour: 'cup_colour'
+    cupColour: 'cup_colour',
+    countDown: 'countdown'
   };
 
   return {
@@ -128,6 +116,20 @@ var UIController = (function() {
         cupColour: document.getElementById(DOMstrings.cupColour).value
       }
     },
+
+    displayTimer: function(time) {
+      seconds = time / 1000;
+      var tm = setInterval(countDown,1000);
+      function countDown(){
+        seconds--;
+        if(seconds == 0){
+           clearInterval(tm);
+           alert('Your tea is ready to drink');
+        }
+        document.getElementById(DOMstrings.countDown).textContent = seconds
+        console.log(seconds);
+     }
+   },
 
 
     getDOMstrings: function() {
@@ -145,13 +147,10 @@ var controller = (function(timerCtrl, UICtrl) {
 
   var setupEventListeners = function() {
     var DOM = UICtrl.getDOMstrings();
-    document.getElementById(DOM.timer).addEventListener('click', setTimer);
+    document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
+
   };
 
-  // click button
-  // calculate timer
-  // start timer
-  // alert
 
   var setTimer = function() {
     var input, time, currentTime
@@ -162,19 +161,11 @@ var controller = (function(timerCtrl, UICtrl) {
     timerArr = timerCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour);
 
 
-    // Calculate timer
+    // Calculate time
     time = timerCtrl.calcTimer(timerArr)
-    console.log(time);
 
-    // Set timer
-    currentTime = timerCtrl.startTimer(time);
-
-    // Get timer seconds
-  
-
-    // Display time
-
-
+    // Display timer
+    currentTime = UICtrl.displayTimer(time);
 
     // Alert
 
@@ -188,3 +179,20 @@ var controller = (function(timerCtrl, UICtrl) {
 
 })(timerController, UIController);
 controller.init();
+
+
+document.getElementById('milk_amount').addEventListener('click', function() {
+  if (milk_amount.value === 'lots') {
+    document.querySelector('.tea').className = 'tea weak';
+    document.querySelector('.ripple').className = 'ripple weak';
+  } else if (milk_amount.value === 'average') {
+    document.querySelector('.tea').className = 'tea';
+    document.querySelector('.ripple').className = 'ripple';
+  } else if (milk_amount.value === 'small') {
+    document.querySelector('.tea').className = 'tea strong';
+    document.querySelector('.ripple').className = 'ripple strong';
+  } else if (milk_amount.value === 'none') {
+    document.querySelector('.tea').className = 'tea black';
+    document.querySelector('.ripple').className = 'ripple black';
+  }
+});

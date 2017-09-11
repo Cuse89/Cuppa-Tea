@@ -2,8 +2,13 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8">
+        <link type="text/css" rel="stylesheet" href="cuppaTea.css">
     </head>
     <body>
+        <div class="tea"></div>
+        <div class="mug"></div>
+        <div class="handle"></div>
+        <div class="ripple"></div>
       <div>
         <p>Type of cup:</p>
         <select id="cup_type">
@@ -37,10 +42,10 @@
       <div>
         <p>Milk amount:</p>
           <select id="milk_amount">
-            <option value="none">None</option>
-            <option value="small">Small amount</option>
             <option value="average">Average amount</option>
+            <option value="small">Small amount</option>
             <option value="lots">Lots</option>
+            <option value="none">None</option>
           </select>
       </div>
       <div>
@@ -61,7 +66,8 @@
           </select>
       </div>
       <br>
-      <button id="timer">Set Timer</button>
+      <button id="set_timer">Set Timer</button>
+      <p id="countdown"></p>
       <script src="cuppaTea.js"></script>
     </body>
 </html>
