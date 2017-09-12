@@ -5,13 +5,20 @@
         <link type="text/css" rel="stylesheet" href="cuppaTea.css">
     </head>
     <body>
+      <div id="tea_wrapper">
         <div class="tea"></div>
-        <div class="mug"></div>
+        <div class="spill" id="spill1"></div>
+        <div class="spill" id="spill2"></div>
+        <div class="spill" id="spill3"></div>
+        <div class="spill" id="spill4"></div>
+        <div class="spill" id="spill5"></div>
+        <div class="cup"></div>
         <div class="handle"></div>
         <div class="ripple"></div>
+      </div>
       <div>
         <p>Type of cup:</p>
-        <select id="cup_type">
+        <select class="option" id="cup_type">
           <option value="mug">Mug</option>
           <option value="glass">Glass</option>
           <option value="teaCup">Tea cup</option>
@@ -19,7 +26,7 @@
       </div>
       <div>
         <p>Surface area size of cup:</p>
-        <select id="surface">
+        <select class="option" id="surface">
           <option value="small">Small</option>
           <option value="medium">Medium</option>
           <option value="large">Large</option>
@@ -27,7 +34,7 @@
       </div>
       <div>
         <p>Milk:<p>
-          <select id="milk">
+          <select class="option" id="milk">
             <option value="none">None</option>
             <option value="skimmed">Skimmed</option>
             <option value="semi">Semi-skimmed</option>
@@ -41,16 +48,16 @@
       </div>
       <div>
         <p>Milk amount:</p>
-          <select id="milk_amount">
+          <select class="option" id="milk_amount">
             <option value="average">Average amount</option>
-            <option value="small">Small amount</option>
+            <option value="little">Little amount</option>
             <option value="lots">Lots</option>
             <option value="none">None</option>
           </select>
       </div>
       <div>
         <p>Room temp:</p>
-          <select id="room_temp">
+          <select class="option" id="room_temp">
             <option value="cold">Cold</option>
             <option value="average">Average</option>
             <option value="hot">Hot</option>
@@ -58,7 +65,7 @@
       </div>
       <div>
         <p>Cup colour:</p>
-          <select id="cup_colour">
+          <select class="option" id="cup_colour">
             <option value="white">White</option>
             <option value="black">Black</option>
             <option value="medium">Medium darkness</option>

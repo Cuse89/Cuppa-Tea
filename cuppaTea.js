@@ -62,7 +62,7 @@ var timerController = (function() {
 
   return {
     addVariables: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
-
+      // duration (in ms) for each category, stored in array
       var timerArr = [tea.cupType[type], tea.cupSurfaceArea[surface], tea.milk[mlk], tea.milkAmount[mlkAmount], tea.roomTemp[rmTmp], tea.cupColour[clr]];
 
       return timerArr;
@@ -79,10 +79,7 @@ var timerController = (function() {
       // time is in ms
       return time;
 
-    },
-
-
-
+    }
 
   };
 
@@ -104,7 +101,69 @@ var UIController = (function() {
     countDown: 'countdown'
   };
 
+  var changeSpill = function(spillClass) {
+    var spillArr;
+    spillArr = document.getElementsByClassName('spill')
+    for (var i = 0; i < spillArr.length; i++) {
+      spillArr[i].className = 'spill' + ' ' + spillClass;
+    }
+  };
+
   return {
+
+    adjustImage: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
+      console.log(type, surface, mlk, mlkAmount, rmTmp, clr);
+      document.querySelector('.tea').className = 'tea' + ' ' + surface + ' ' + mlkAmount;
+      document.querySelector('.cup').className = 'cup' + ' ' + type + ' ' + surface;
+      document.querySelector('.handle').className = 'handle' + ' ' + type + ' ' + surface;
+      document.querySelector('.ripple').className = 'ripple' + ' ' + mlkAmount;
+      changeSpill(mlkAmount);
+
+
+  /*    switch (mlkAmount) {
+        case 'average':
+        document.querySelector('.tea').className = 'tea';
+        document.querySelector('.ripple').className = 'ripple';
+        changeSpill('');
+          break;
+        case 'little':
+        document.querySelector('.tea').className = 'tea little';
+        document.querySelector('.ripple').className = 'ripple little';
+        changeSpill(mlkAmount);
+          break;
+        case 'lots':
+        document.querySelector('.tea').className = 'tea lots';
+        document.querySelector('.ripple').className = 'ripple lots';
+        changeSpill('lots')
+          break;
+        case 'none':
+        document.querySelector('.tea').className = 'tea none';
+        document.querySelector('.ripple').className = 'ripple none';
+        changeSpill('none')
+          break;
+    } switch (type) {
+        case 'mug':
+        document.querySelector('.mug').className = 'mug';
+        document.querySelector('.handle').className = 'handle';
+          break;
+        case 'glass':
+        document.querySelector('.mug').className = 'mug glass';
+        document.querySelector('.handle').className = 'handle glass';
+          break;
+        case 'teaCup':
+        document.querySelector('.mug').className = 'mug tea_cup';
+        document.querySelector('.handle').className = 'handle';
+          break;
+
+    } switch (surface) {
+      case 'small':
+        document.querySelector('.mug').className = 'mug resize';
+        document.querySelector('.tea').className = 'tea resize';
+        break;
+
+    }*/
+    },
+
 
     getInput: function() {
       return {
@@ -144,19 +203,36 @@ var UIController = (function() {
 
 
 var controller = (function(timerCtrl, UICtrl) {
+  var input;
 
   var setupEventListeners = function() {
-    var DOM = UICtrl.getDOMstrings();
+    var DOM, optionsArr;
+    DOM = UICtrl.getDOMstrings();
     document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
+    optionsArr = document.getElementsByClassName('option')
+    // loops through optionsArr (array)
+    for (var i = 0; i < optionsArr.length; i++) {
+      optionsArr[i].addEventListener('click', changeImage);
+    }
+  };
 
+  var inputData = function() {
+    // Input variable is object according to choices
+    input = UICtrl.getInput();
+    console.log(input);
+  };
+
+  var changeImage = function() {
+    // Get field data
+    inputData();
+    // Display new image according to input object
+    UICtrl.adjustImage(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour)
   };
 
 
   var setTimer = function() {
-    var input, time, currentTime
-    // Get field data
-    input = UICtrl.getInput();
-
+    // Get field data. Input variable will be an object with choices selected
+    inputData();
     // Get time data according to variables
     timerArr = timerCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour);
 
@@ -174,25 +250,9 @@ var controller = (function(timerCtrl, UICtrl) {
   return {
     init: function() {
       setupEventListeners();
+      changeImage();
     }
   };
 
 })(timerController, UIController);
 controller.init();
-
-
-document.getElementById('milk_amount').addEventListener('click', function() {
-  if (this.value === 'lots') {
-    document.querySelector('.tea').className = 'tea weak';
-    document.querySelector('.ripple').className = 'ripple weak';
-  } else if (this.value === 'average') {
-    document.querySelector('.tea').className = 'tea';
-    document.querySelector('.ripple').className = 'ripple';
-  } else if (this.value === 'small') {
-    document.querySelector('.tea').className = 'tea strong';
-    document.querySelector('.ripple').className = 'ripple strong';
-  } else if (this.value === 'none') {
-    document.querySelector('.tea').className = 'tea black';
-    document.querySelector('.ripple').className = 'ripple black';
-  }
-});
