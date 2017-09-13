@@ -1,48 +1,57 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <link type="text/css" rel="stylesheet" href="cuppaTea.css">
-    </head>
-    <body>
-      <div id="tea_wrapper">
-<div class="cup"></div>
-        <div class="tea"></div>
 
-        <div class="handle"></div>
-        <div class="ripple"></div>
-        <div class="spill" id="spill1"></div>
-        <div class="spill" id="spill2"></div>
-        <div class="spill" id="spill3"></div>
-        <div class="spill" id="spill4"></div>
-        <div class="spill" id="spill5"></div>
-      </div>
-      <div>
-        <p>Type of cup:</p>
-        <select class="option" id="cup_type">
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="cuppaTea.css">
+</head>
+
+<body>
+  <div id="main">
+    <img id="notepad" src="notepad.png" />
+
+    <div id="tea_wrapper">
+      <div class="cup"></div>
+      <div class="tea"></div>
+      <div class="handle"></div>
+      <div class="ripple"></div>
+      <div class="spill" id="spill1"></div>
+      <div class="spill" id="spill2"></div>
+      <div class="spill" id="spill3"></div>
+      <div class="spill" id="spill4"></div>
+      <div class="spill" id="spill5"></div>
+      <div class="spill" id="spill6"></div>
+      <div class="spill" id="spill7"></div>
+    </div>
+  </div>
+  <div id="dropdowns">
+    <div>
+      <p>Type of cup:</p>
+      <select class="option" id="cup_type">
           <option value="mug">Mug</option>
           <option value="glass">Glass</option>
           <option value="teaCup">Tea cup</option>
         </select>
-      </div>
-      <div>
-        <p>Surface area size of cup:</p>
-        <select class="option" id="surface">
+    </div>
+    <div>
+      <p>Surface area size of cup:</p>
+      <select class="option" id="surface">
           <option value="small">Small</option>
           <option selected value="medium">Medium</option>
           <option value="large">Large</option>
         </select>
-      </div>
-      <div>
-        <p>Cup colour:</p>
-          <select class="option" id="cup_colour">
+    </div>
+    <div>
+      <p>Cup colour:</p>
+      <select class="option" id="cup_colour">
             <option value="white">White</option>
             <option value="black">Black</option>
             <option value="mediumDarkness">Medium darkness</option>
           </select>
-      </div>
-      <div>
-        <p>Milk:<p>
+    </div>
+    <div>
+      <p>Milk:
+        <p>
           <select class="option" id="milk">
             <option value="none">None</option>
             <option value="skimmed">Skimmed</option>
@@ -54,27 +63,29 @@
             <option value="coconut">Coconut milk</option>
             <option value="soya">Soya milk</option>
           </select>
-      </div>
-      <div>
-        <p>Milk amount:</p>
-          <select class="option" id="milk_amount">
+    </div>
+    <div>
+      <p>Milk amount:</p>
+      <select class="option" id="milk_amount">
             <option value="little">Little amount</option>
             <option value="average">Average amount</option>
             <option value="lots">Lots</option>
             <option selected value="none">None</option>
           </select>
-      </div>
-      <div>
-        <p>Room temp:</p>
-          <select class="option" id="room_temp">
+    </div>
+    <div>
+      <p>Room temp:</p>
+      <select class="option" id="room_temp">
             <option value="cold">Cold</option>
             <option selected value="mild">Mild</option>
             <option value="hot">Hot</option>
           </select>
-      </div>
-      <br>
-      <button id="set_timer">Set Timer</button>
-      <p id="countdown"></p>
-      <script src="cuppaTea.js"></script>
-    </body>
+    </div>
+    <br>
+    <button id="set_timer">Set Timer</button>
+    <p id="countdown"></p>
+  </div>
+  <script src="cuppaTea.js"></script>
+</body>
+
 </html>

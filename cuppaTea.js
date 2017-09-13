@@ -21,7 +21,7 @@ var timerController = (function() {
 
   var tea = {
     cupType: {
-      mug: 0,    // numbers are the timings to be used for timer
+      mug: 0, // numbers are the timings to be used for timer
       glass: 30000,
       teaCup: 30000,
     },
@@ -63,7 +63,7 @@ var timerController = (function() {
     addVariables: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
       // duration (in ms) for each category, stored in array
       var timerArr = [tea.cupType[type], tea.cupSurfaceArea[surface], tea.milk[mlk], tea.milkAmount[mlkAmount], tea.roomTemp[rmTmp], tea.cupColour[clr]];
-console.log(timerArr);
+      console.log(timerArr);
       return timerArr;
 
     },
@@ -152,17 +152,18 @@ var UIController = (function() {
 
     displayTimer: function(time) {
       seconds = time / 1000;
-      var tm = setInterval(countDown,1000);
-      function countDown(){
+      var tm = setInterval(countDown, 1000);
+
+      function countDown() {
         seconds--;
-        if(seconds == 0){
-           clearInterval(tm);
-           alert('Your tea is ready to drink');
+        if (seconds == 0) {
+          clearInterval(tm);
+          alert('Your tea is ready to drink');
         }
         document.getElementById(DOMstrings.countDown).textContent = seconds
         console.log(seconds);
-     }
-   },
+      }
+    },
 
 
     getDOMstrings: function() {
