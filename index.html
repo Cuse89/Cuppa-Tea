@@ -6,15 +6,16 @@
     </head>
     <body>
       <div id="tea_wrapper">
+<div class="cup"></div>
         <div class="tea"></div>
+
+        <div class="handle"></div>
+        <div class="ripple"></div>
         <div class="spill" id="spill1"></div>
         <div class="spill" id="spill2"></div>
         <div class="spill" id="spill3"></div>
         <div class="spill" id="spill4"></div>
         <div class="spill" id="spill5"></div>
-        <div class="cup"></div>
-        <div class="handle"></div>
-        <div class="ripple"></div>
       </div>
       <div>
         <p>Type of cup:</p>
@@ -28,9 +29,17 @@
         <p>Surface area size of cup:</p>
         <select class="option" id="surface">
           <option value="small">Small</option>
-          <option value="medium">Medium</option>
+          <option selected value="medium">Medium</option>
           <option value="large">Large</option>
         </select>
+      </div>
+      <div>
+        <p>Cup colour:</p>
+          <select class="option" id="cup_colour">
+            <option value="white">White</option>
+            <option value="black">Black</option>
+            <option value="mediumDarkness">Medium darkness</option>
+          </select>
       </div>
       <div>
         <p>Milk:<p>
@@ -49,27 +58,18 @@
       <div>
         <p>Milk amount:</p>
           <select class="option" id="milk_amount">
-            <option value="average">Average amount</option>
             <option value="little">Little amount</option>
+            <option value="average">Average amount</option>
             <option value="lots">Lots</option>
-            <option value="none">None</option>
+            <option selected value="none">None</option>
           </select>
       </div>
       <div>
         <p>Room temp:</p>
           <select class="option" id="room_temp">
             <option value="cold">Cold</option>
-            <option value="average">Average</option>
+            <option selected value="mild">Mild</option>
             <option value="hot">Hot</option>
-          </select>
-      </div>
-      <div>
-        <p>Cup colour:</p>
-          <select class="option" id="cup_colour">
-            <option value="white">White</option>
-            <option value="black">Black</option>
-            <option value="medium">Medium darkness</option>
-            <option value="transparent">Transparent</option>
           </select>
       </div>
       <br>

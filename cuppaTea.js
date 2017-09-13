@@ -43,20 +43,19 @@ var timerController = (function() {
     },
     milkAmount: {
       none: 0,
-      small: 30000,
+      little: 30000,
       average: 50000,
       lots: 70000
     },
     roomTemp: {
       cold: 30000,
-      average: 15000,
+      mild: 15000,
       hot: 0
     },
     cupColour: {
       white: 0,
       black: 30000,
-      medium: 10000,
-      transparent: 10000
+      mediumDarkness: 10000
     }
   };
 
@@ -64,7 +63,7 @@ var timerController = (function() {
     addVariables: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
       // duration (in ms) for each category, stored in array
       var timerArr = [tea.cupType[type], tea.cupSurfaceArea[surface], tea.milk[mlk], tea.milkAmount[mlkAmount], tea.roomTemp[rmTmp], tea.cupColour[clr]];
-
+console.log(timerArr);
       return timerArr;
 
     },
@@ -113,55 +112,30 @@ var UIController = (function() {
 
     adjustImage: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
       console.log(type, surface, mlk, mlkAmount, rmTmp, clr);
+      if (type === 'glass') {
+        // blank out cup colour option + hide handle
+        document.getElementById('cup_colour').value = 'white';
+        document.getElementById('cup_colour').disabled = true;
+        document.querySelector('.handle').style.display = 'none';
+      } else {
+        document.getElementById('cup_colour').disabled = false;
+        document.querySelector('.handle').style.display = '';
+      };
+      if (mlk === 'none') {
+        document.getElementById('milk_amount').disabled = true;
+        document.getElementById('milk_amount').value = 'none';
+      } else {
+        document.getElementById('milk_amount').disabled = false;
+      }
+      // change class names according to options
       document.querySelector('.tea').className = 'tea' + ' ' + surface + ' ' + mlkAmount;
-      document.querySelector('.cup').className = 'cup' + ' ' + type + ' ' + surface;
-      document.querySelector('.handle').className = 'handle' + ' ' + type + ' ' + surface;
+      document.querySelector('.cup').className = 'cup' + ' ' + type + ' ' + surface + ' ' + clr;
+      document.querySelector('.handle').className = 'handle' + ' ' + type + ' ' + surface + ' ' + clr;
       document.querySelector('.ripple').className = 'ripple' + ' ' + mlkAmount;
       changeSpill(mlkAmount);
+      document.body.className = rmTmp;
 
 
-  /*    switch (mlkAmount) {
-        case 'average':
-        document.querySelector('.tea').className = 'tea';
-        document.querySelector('.ripple').className = 'ripple';
-        changeSpill('');
-          break;
-        case 'little':
-        document.querySelector('.tea').className = 'tea little';
-        document.querySelector('.ripple').className = 'ripple little';
-        changeSpill(mlkAmount);
-          break;
-        case 'lots':
-        document.querySelector('.tea').className = 'tea lots';
-        document.querySelector('.ripple').className = 'ripple lots';
-        changeSpill('lots')
-          break;
-        case 'none':
-        document.querySelector('.tea').className = 'tea none';
-        document.querySelector('.ripple').className = 'ripple none';
-        changeSpill('none')
-          break;
-    } switch (type) {
-        case 'mug':
-        document.querySelector('.mug').className = 'mug';
-        document.querySelector('.handle').className = 'handle';
-          break;
-        case 'glass':
-        document.querySelector('.mug').className = 'mug glass';
-        document.querySelector('.handle').className = 'handle glass';
-          break;
-        case 'teaCup':
-        document.querySelector('.mug').className = 'mug tea_cup';
-        document.querySelector('.handle').className = 'handle';
-          break;
-
-    } switch (surface) {
-      case 'small':
-        document.querySelector('.mug').className = 'mug resize';
-        document.querySelector('.tea').className = 'tea resize';
-        break;
-
-    }*/
     },
 
 
@@ -206,14 +180,14 @@ var controller = (function(timerCtrl, UICtrl) {
   var input;
 
   var setupEventListeners = function() {
-    var DOM, optionsArr;
-    DOM = UICtrl.getDOMstrings();
-    document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
+    var optionsArr, DOM;
     optionsArr = document.getElementsByClassName('option')
     // loops through optionsArr (array)
     for (var i = 0; i < optionsArr.length; i++) {
       optionsArr[i].addEventListener('click', changeImage);
     }
+    DOM = UICtrl.getDOMstrings();
+    document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
   };
 
   var inputData = function() {

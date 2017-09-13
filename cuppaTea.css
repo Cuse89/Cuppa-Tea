@@ -1,5 +1,11 @@
-body {
-	background-color: #c0cae0;
+.cold {
+	background-color: #c2c2fd;
+}
+.mild {
+	background-color: #ddeab2;
+}
+.hot {
+	background-color: #ffb6b0;
 }
 
 #tea_wrapper {
@@ -21,11 +27,8 @@ body {
 
 }
 
-.tea, .spill {
-	background: #ca843b;
-}
-
 .spill {
+	z-index: 0;
 	position: absolute;
 	border-radius: 50%;
 }
@@ -66,6 +69,7 @@ body {
 }
 
 .tea.average {
+	background: #ca843b;
 	box-shadow:  0 0 0 10px #d0914f,
 							 0 0 0 35px #c5792a;
 }
@@ -87,20 +91,13 @@ body {
   box-shadow:  0 0 0 10px #3c2915,
 							 0 0 0 35px #1d1206;
 }
-
-.spill.lots {
-	background: #f5c468;
-}
-
-.spill.little {
-	background: #94612c;
-}
-
-.spill.none {
-	background: #23170a;
-}
+.spill.average {background: #ca843b;}
+.spill.lots {background: #f5c468;}
+.spill.little {background: #94612c;}
+.spill.none {background: #23170a;}
 
 .cup {
+	z-index: 4;
   top: 0px;
   left: 2px;
 	margin: auto;
@@ -109,20 +106,14 @@ body {
 	height: 250px;
 	border-radius: 50%;
 	box-shadow: 0 0 0 40px;
-	color: #597796;
 	opacity: 1;
 }
 
 .cup.glass {color: #bbc0c5; opacity: 0.8; box-shadow: 0 0 0 25px;}
 .cup.teaCup {box-shadow: 0 0 0 25px;}
 
-.handle.glass {background: #bbc0c5; opacity: 0.8;}
-.handle.small {left: 235px;}
-.handle.large {left: 300px;}
-
-
-
 .handle {
+	z-index: 4;
 	position: absolute;
 	background: #597796;
 	height: 50px;
@@ -133,15 +124,19 @@ body {
 	opacity: 1;
 }
 
+.handle.glass {background: #bbc0c5; opacity: 0.8;}
+.handle.small {left: 235px;}
+.handle.large {left: 300px;}
+
 .ripple {
-	z-index: 2;
+	z-index: 5;
 	width: 20px;
 	height: 20px;
 	border-radius: 50%;
 	position: absolute;
 	border: 1px solid #c5792a;
 	left: 116px;
-	top: 118px;
+	top: 116px;
 	/* a little bit of animation */
 	animation: rings 8s ease-out infinite;
 }
@@ -161,14 +156,19 @@ body {
   }
 }
 
-.small {
-	transform: scale(0.8);
-}
 
-.large {
-	transform: scale(1.2);
-}
+.small {transform: scale(0.8);}
+.medium {transform: scale(1);}
+.large {transform: scale(1.2);}
 
 .ripple.lots {border-color: #fbc155;}
 .ripple.little {border-color: #754818;}
 .ripple.none {border-color: #1d1206;}
+
+.white {color: white}
+.black {color: black}
+.mediumDarkness {color: #597796 }
+
+.handle.white {background-color: white;}
+.handle.black {background-color: black;}
+.handle.mediumDarkness {background-color: #597796;}
