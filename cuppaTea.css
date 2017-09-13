@@ -4,28 +4,28 @@ body {
 }
 #main {
 	position: absolute;
-	left: 400px;
+	//left: 400px;
 }
 #notepad {
 	position: absolute;
 	height: 600px;
 	width: 550px;
 	left: 0px;
-	top: -20px;
+	top: 0px;
 }
 
 #dropdowns {
 	position: absolute;
 	left: 40px;
-	top: 10px;
+	top: 50px;
 }
 
 #tea_wrapper {
   position: absolute;
-  top: 60px;
   left: 460px;
   width: 200px;
   height: 200px;
+  top: 80px;
 }
 
 .cold {
@@ -163,7 +163,7 @@ body {
 }
 
 .cup.teaCup {
-  box-shadow: 0 0 0 25px;
+  box-shadow: 0 0 0 15px;
 }
 
 .handle {
@@ -188,7 +188,7 @@ body {
 }
 
 .handle.large {
-  left: 300px;
+  left: 275px;
 }
 
 .ripple {
@@ -201,7 +201,7 @@ body {
   left: 116px;
   top: 116px;
   /* a little bit of animation */
-  animation: rings 8s ease-out infinite;
+  animation: rings 6s ease-out infinite;
 }
 
 @keyframes rings {
@@ -248,7 +248,7 @@ body {
 }
 
 .black {
-  color: #1f1f1f;
+  color: #2d2d2d;
 }
 
 .mediumDarkness {
@@ -260,7 +260,7 @@ body {
 }
 
 .handle.black {
-  background-color: #1f1f1f;
+  background-color: #2d2d2d;
 }
 
 .handle.mediumDarkness {

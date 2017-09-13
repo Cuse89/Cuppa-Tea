@@ -13,7 +13,6 @@ CONTROLLER MODULE
 */
 ////////////////////////////////////////////////////////////////////////////////// Timer Controller
 
-/* Sort data structure out, each variable in object e.g size, needs to be own object with 3 following functions - small, medium, large*/
 
 var timerController = (function() {
   var seconds;
