@@ -1,23 +1,25 @@
 body {
   font-family: tahoma;
-	font-size: 20px;
+  font-size: 20px;
 }
+
 #main {
-	position: absolute;
-	left: 400px;
+  position: absolute;
+  left: 400px;
 }
+
 #notepad {
-	position: absolute;
-	height: 600px;
-	width: 550px;
-	left: 0px;
-	top: 0px;
+  position: absolute;
+  height: 600px;
+  width: 550px;
+  left: 0px;
+  top: 0px;
 }
 
 #dropdowns {
-	position: absolute;
-	left: 40px;
-	top: 50px;
+  position: absolute;
+  left: 40px;
+  top: 50px;
 }
 
 #tea_wrapper {
@@ -39,8 +41,6 @@ body {
 .hot {
   background-color: #ffb6b0;
 }
-
-
 
 .tea {
   z-index: 1;

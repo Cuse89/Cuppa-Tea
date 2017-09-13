@@ -181,11 +181,11 @@ var controller = (function(timerCtrl, UICtrl) {
 
   var setupEventListeners = function() {
     var optionsArr, DOM;
-    optionsArr = document.getElementsByClassName('option')
+    optionsArr = [].slice.call(document.getElementsByClassName('option'));
     // loops through optionsArr (array)
-    for (var i = 0; i < optionsArr.length; i++) {
-      optionsArr[i].addEventListener('click', changeImage);
-    }
+    optionsArr.forEach(function(element) {
+      element.addEventListener("click", changeImage);
+    });
     DOM = UICtrl.getDOMstrings();
     document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
   };
