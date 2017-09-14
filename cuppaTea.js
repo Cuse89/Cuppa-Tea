@@ -26,8 +26,8 @@ var timerController = (function() {
     },
     cupSurfaceArea: {
       small: 0,
-      medium: 20000,
-      large: 40000
+      medium: 30000,
+      large: 70000
     },
     milk: {
       none: 0,
@@ -47,14 +47,14 @@ var timerController = (function() {
       lots: 70000
     },
     roomTemp: {
-      cold: 30000,
-      mild: 15000,
+      cold: 70000,
+      mild: 30000,
       hot: 0
     },
     cupColour: {
       white: 0,
-      black: 30000,
-      mediumDarkness: 10000
+      black: 50000,
+      mediumDarkness: 20000
     }
   };
 
@@ -88,6 +88,7 @@ var timerController = (function() {
 
 var UIController = (function() {
 
+  // Finish the DOMstrings for rest of javascript
   var DOMstrings = {
     setTimer: 'set_timer',
     cupType: 'cup_type',
@@ -105,6 +106,11 @@ var UIController = (function() {
     for (var i = 0; i < spillArr.length; i++) {
       spillArr[i].className = 'spill' + ' ' + spillClass;
     }
+  };
+
+  var moveFly = function(width) {
+    fly.style.left = 190 + (width * 2) + 'px';
+    fly.style.top = 480 - (width * 2) + 'px';
   };
 
   return {
@@ -149,7 +155,7 @@ var UIController = (function() {
       }
     },
 
-    displayTimer: function(time) {
+    displayTimer: function(time, mlkAmount) {
       console.log(time);
       var fly, percentage, width, ms, id
       fly = document.getElementById('fly');
@@ -157,31 +163,29 @@ var UIController = (function() {
       width = 0;
       ms = time / 100;
       id = setInterval(frame, ms);
+      percentage.innerHTML = 'Cooling down. Be patient... 0% ready';
+      if (mlkAmount === 'none') {
+        percentage.style.color = 'white'
+      } else {
+        percentage.style.color = 'black'
+      }
 
       function frame() {
         if (width == 100) {
           clearInterval(id);
+        } else if (width > 2 && width < 8) {
+          width++;
+          moveFly(width);
+          percentage.innerHTML = 'Watch out for the fly... ' + width * 1 + '% ready';
+        } else if (width > 10 && width < 28) {
+          width++;
+          moveFly(width);
+          percentage.innerHTML = 'Mmm Tea... ' + width * 1 + '% ready';
         } else {
           width++;
-          fly.style.left = 190 + (width * 2) + 'px';
-          fly.style.top = 480 - (width * 2) + 'px';
+          moveFly(width);
           percentage.innerHTML = 'Cooling down. Be patient... ' + width * 1 + '% ready';
         }
-      }
-
-
-
-      seconds = time / 1000;
-      var tm = setInterval(countDown, 1000);
-
-      function countDown() {
-        seconds--;
-        if (seconds == 0) {
-          clearInterval(tm);
-          alert('Your tea is ready to drink');
-        }
-        document.getElementById(DOMstrings.countDown).textContent = seconds
-        console.log(seconds);
       }
     },
 
@@ -236,7 +240,7 @@ var controller = (function(timerCtrl, UICtrl) {
     time = timerCtrl.calcTimer(timerArr)
 
     // Display timer
-    currentTime = UICtrl.displayTimer(time);
+    UICtrl.displayTimer(time, input.milkAmount);
 
     // Alert
 

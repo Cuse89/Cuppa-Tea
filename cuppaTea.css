@@ -270,6 +270,7 @@ body {
 }
 
 #percentage {
+  z-index: 6;
   position: absolute;
 }
 
