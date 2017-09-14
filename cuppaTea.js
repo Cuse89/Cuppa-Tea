@@ -150,6 +150,27 @@ var UIController = (function() {
     },
 
     displayTimer: function(time) {
+      console.log(time);
+      var fly, percentage, width, ms, id
+      fly = document.getElementById('fly');
+      percentage = document.getElementById("percentage");
+      width = 0;
+      ms = time / 100;
+      id = setInterval(frame, ms);
+
+      function frame() {
+        if (width == 100) {
+          clearInterval(id);
+        } else {
+          width++;
+          fly.style.left = 190 + (width * 2) + 'px';
+          fly.style.top = 480 - (width * 2) + 'px';
+          percentage.innerHTML = 'Cooling down. Be patient... ' + width * 1 + '% ready';
+        }
+      }
+
+
+
       seconds = time / 1000;
       var tm = setInterval(countDown, 1000);
 
