@@ -269,14 +269,20 @@ body {
   background-color: #597796;
 }
 
+#talking {
+  z-index: 6;
+  position: absolute;
+}
 #percentage {
   z-index: 6;
   position: absolute;
+  top: 111px;
+  left: 32px;
 }
 
 #fly {
   position: absolute;
-  top: 480px;
+  top: 475px;
   left: 190px;
   z-index: 10;
   width: 100px;

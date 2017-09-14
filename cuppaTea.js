@@ -87,6 +87,7 @@ var timerController = (function() {
 ////////////////////////////////////////////////////////////////////////////////// UI Controller
 
 var UIController = (function() {
+  var percent, fly;
 
   // Finish the DOMstrings for rest of javascript
   var DOMstrings = {
@@ -100,7 +101,7 @@ var UIController = (function() {
     countDown: 'countdown'
   };
 
-  var changeSpill = function(spillClass) {
+  var changeSpillClr = function(spillClass) {
     var spillArr;
     spillArr = document.getElementsByClassName('spill')
     for (var i = 0; i < spillArr.length; i++) {
@@ -108,9 +109,10 @@ var UIController = (function() {
     }
   };
 
-  var moveFly = function(width) {
-    fly.style.left = 190 + (width * 2) + 'px';
-    fly.style.top = 480 - (width * 2) + 'px';
+  var moveFly = function() {
+    fly = document.getElementById('fly');
+    fly.style.left = 190 + (percent * 2) + 'px';
+    fly.style.top = 475 - (percent * 2) + 'px';
   };
 
   return {
@@ -137,7 +139,7 @@ var UIController = (function() {
       document.querySelector('.cup').className = 'cup' + ' ' + type + ' ' + surface + ' ' + clr;
       document.querySelector('.handle').className = 'handle' + ' ' + type + ' ' + surface + ' ' + clr;
       document.querySelector('.ripple').className = 'ripple' + ' ' + mlkAmount;
-      changeSpill(mlkAmount);
+      changeSpillClr(mlkAmount);
       document.body.className = rmTmp;
 
 
@@ -157,34 +159,39 @@ var UIController = (function() {
 
     displayTimer: function(time, mlkAmount) {
       console.log(time);
-      var fly, percentage, width, ms, id
+      var fly, talking, percentage, ms, id
       fly = document.getElementById('fly');
+      talking = document.getElementById("talking");
       percentage = document.getElementById("percentage");
-      width = 0;
       ms = time / 100;
+      percent = 0;
       id = setInterval(frame, ms);
-      percentage.innerHTML = 'Cooling down. Be patient... 0% ready';
+      talking.innerHTML = 'Cooling down. Be patient...';
+      percentage.innerHTML = percent * 1 +'% ready';
       if (mlkAmount === 'none') {
-        percentage.style.color = 'white'
+        talking.style.color = 'white';
+        percentage.style.color = 'white';
       } else {
-        percentage.style.color = 'black'
+        talking.style.color = 'black';
+        percentage.style.color = 'black';
       }
-
+      // function frame peforms each interval
       function frame() {
-        if (width == 100) {
+        percent++;
+        moveFly();
+        if (percent == 100) {
+          talking.innerHTML = 'Drink Up!';
+          percentage.innerHTML = percent * 1 +'% ready';
           clearInterval(id);
-        } else if (width > 2 && width < 8) {
-          width++;
-          moveFly(width);
-          percentage.innerHTML = 'Watch out for the fly... ' + width * 1 + '% ready';
-        } else if (width > 10 && width < 28) {
-          width++;
-          moveFly(width);
-          percentage.innerHTML = 'Mmm Tea... ' + width * 1 + '% ready';
+        } else if (percent > 2 && percent < 8) {
+          talking.innerHTML = 'Watch out for the fly... ';
+          percentage.innerHTML = percent * 1 +'% ready';
+        } else if (percent > 10 && percent < 28) {
+          talking.innerHTML = 'Mmmmmmm Tea... ';
+          percentage.innerHTML = percent * 1 +'% ready';
         } else {
-          width++;
-          moveFly(width);
-          percentage.innerHTML = 'Cooling down. Be patient... ' + width * 1 + '% ready';
+          talking.innerHTML = 'Cooling down. Be patient... ';
+          percentage.innerHTML = percent * 1 +'% ready';
         }
       }
     },
