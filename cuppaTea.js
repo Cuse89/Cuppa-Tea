@@ -11,70 +11,67 @@ CONTROLLER MODULE
 
 
 */
-////////////////////////////////////////////////////////////////////////////////// Timer Controller
+////////////////////////////////////////////////////////////////////////////////// Data Controller
 
 
-var timerController = (function() {
+var dataController = (function() {
   var seconds;
 
 
   var tea = {
     cupType: {
-      mug: 0, // numbers are the timings to be used for timer
-      glass: 30000,
-      teaCup: 30000,
+      mug: [0, 0], // numbers are the timings (secs) to be used for timer
+      glass: [30, 100],
+      teaCup: [30, 100]
     },
     cupSurfaceArea: {
-      small: 0,
-      medium: 30000,
-      large: 70000
+      small: [0, 0],
+      medium: [30, 60],
+      large: [70, 140]
     },
     milk: {
-      none: 0,
-      skimmed: 10000,
-      semi: 10000,
-      whole: 10000,
-      single: 10000,
-      double: 10000,
-      almond: 10000,
-      coconut: 10000,
-      soya: 10000
+      none: [0, 0],
+      skimmed: [0, 160],
+      semi: [0, 80],
+      whole: [0, 40],
+      single: [0, 20],
+      double: [0, 0],
+      almond: [0, 40],
+      coconut: [0, 40],
+      soya: [0, 40]
     },
     milkAmount: {
-      none: 0,
-      little: 30000,
-      average: 50000,
-      lots: 70000
+      none: [0, 200],
+      little: [30, 100],
+      average: [50, 50],
+      lots: [70, 0]
     },
     roomTemp: {
-      cold: 70000,
-      mild: 30000,
-      hot: 0
+      cold: [70, 200],
+      mild: [30, 100],
+      hot: [0, 0]
     },
     cupColour: {
-      white: 0,
-      black: 50000,
-      mediumDarkness: 20000
+      white: [0, 0],
+      black: [30, 60],
+      mediumDarkness: [20, 40]
     }
   };
 
   return {
-    addVariables: function(type, surface, mlk, mlkAmount, rmTmp, clr) {
+    addVariables: function(type, surface, mlk, mlkAmount, rmTmp, clr, num) {
       // duration (in ms) for each category, stored in array
-      var timerArr = [tea.cupType[type], tea.cupSurfaceArea[surface], tea.milk[mlk], tea.milkAmount[mlkAmount], tea.roomTemp[rmTmp], tea.cupColour[clr]];
+      var timerArr = [tea.cupType[type][num], tea.cupSurfaceArea[surface][num], tea.milk[mlk][num], tea.milkAmount[mlkAmount][num], tea.roomTemp[rmTmp][num], tea.cupColour[clr][num]];
       console.log(timerArr);
       return timerArr;
 
     },
 
-    calcTimer: function(timings) {
-      // 6 mins perfect time - 360000 ms
-      // average cup = 105000 ms
-      // 360000 + 105000 = 465000
-      var time;
-      time = 465000 - (timings[0] + timings[1] + timings[2] + timings[3] + timings[4] + timings[5])
+    calcTimer: function(maxDuration, timings) {
+      var timeSecs, timeMs;
+      time = maxDuration - (timings[0] + timings[1] + timings[2] + timings[3] + timings[4] + timings[5])
       console.log(time);
-      // time is in ms
+      // time is in seconds
       return time;
 
     }
@@ -113,6 +110,18 @@ var UIController = (function() {
     fly = document.getElementById('fly');
     fly.style.left = 190 + (percent * 2) + 'px';
     fly.style.top = 475 - (percent * 2) + 'px';
+  };
+
+  var formatTime = function(time) {
+    var mins, secs, minsDecimal, minsSplit, secsFraction, minsSecs
+    // turn seconds into minutes and seconds
+    minsDecimal = (time / 60).toFixed(2)
+    minsSplit = minsDecimal.split('.');
+    mins = minsSplit[0];
+    secsFraction = minsSplit[1];
+    secs = Math.round((secsFraction * 60) / 100);
+    minsSecs = mins + ' minutes ' + secs + ' seconds';
+    return minsSecs;
   };
 
   return {
@@ -157,17 +166,17 @@ var UIController = (function() {
       }
     },
 
-    displayTimer: function(time, mlkAmount) {
-      console.log(time);
-      var fly, talking, percentage, ms, id
+    displayFirstTimer: function(time, mlkAmount) {
+      var fly, talking, percentage, x, percent, ms;
       fly = document.getElementById('fly');
       talking = document.getElementById("talking");
       percentage = document.getElementById("percentage");
-      ms = time / 100;
       percent = 0;
-      id = setInterval(frame, ms);
+      ms = time * 10;
+      x = setInterval(frame, ms);
       talking.innerHTML = 'Cooling down. Be patient...';
       percentage.innerHTML = percent * 1 +'% ready';
+      // text colour white if tea is black
       if (mlkAmount === 'none') {
         talking.style.color = 'white';
         percentage.style.color = 'white';
@@ -182,7 +191,7 @@ var UIController = (function() {
         if (percent == 100) {
           talking.innerHTML = 'Drink Up!';
           percentage.innerHTML = percent * 1 +'% ready';
-          clearInterval(id);
+          clearInterval(x);
         } else if (percent > 2 && percent < 8) {
           talking.innerHTML = 'Watch out for the fly... ';
           percentage.innerHTML = percent * 1 +'% ready';
@@ -196,6 +205,25 @@ var UIController = (function() {
       }
     },
 
+    secondTimer: function(time) {
+      var displayTime = formatTime(time);
+      console.log(displayTime);
+      x = setInterval(countDown, 1000);
+      function countDown() {
+        time--;
+        console.log(time);
+        if (time === 0){
+          clearInterval(x);
+          alert('Drink Up your tea\'s getting cold!')
+        }
+
+      }
+    },
+
+
+
+
+
 
     getDOMstrings: function() {
       return DOMstrings;
@@ -208,24 +236,18 @@ var UIController = (function() {
 ////////////////////////////////////////////////////////////////////////////////// Global Controller
 
 
-var controller = (function(timerCtrl, UICtrl) {
+var controller = (function(dataCtrl, UICtrl) {
   var input;
 
   var setupEventListeners = function() {
-    var optionsArr, DOM;
+    var optionsArr, dom;
     optionsArr = [].slice.call(document.getElementsByClassName('option'));
     // loops through optionsArr (array)
     optionsArr.forEach(function(element) {
       element.addEventListener("click", changeImage);
     });
-    DOM = UICtrl.getDOMstrings();
-    document.getElementById(DOM.setTimer).addEventListener('click', setTimer);
-  };
-
-  var inputData = function() {
-    // Input variable is object according to choices
-    input = UICtrl.getInput();
-    console.log(input);
+    dom = UICtrl.getDOMstrings();
+    document.getElementById(dom.setTimer).addEventListener('click', setTimers);
   };
 
   var changeImage = function() {
@@ -236,21 +258,41 @@ var controller = (function(timerCtrl, UICtrl) {
   };
 
 
-  var setTimer = function() {
+  var setTimers = function() {
     // Get field data. Input variable will be an object with choices selected
     inputData();
     // Get time data according to variables
-    timerArr = timerCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour);
+    var timerArr1 = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour, 0);
+    var timerArr2 = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour, 1);
+
+    // Calculate times
+    var time1 = dataCtrl.calcTimer(465, timerArr1);
+    var time2 = dataCtrl.calcTimer(1380, timerArr2);
+
+    // Start and display first timer progress and alert when complete
+    UICtrl.displayFirstTimer(time1, input.milkAmount);
+
+    // Start/display second timer time, same time as first - progress not visible
+    UICtrl.secondTimer(time2);
+
+    // Display time until second alert, in mins/secs
+
+    /* To do:
+    - finished tea button - cancels second timer
+    - disable options whilst timing
+
+    */
 
 
-    // Calculate time
-    time = timerCtrl.calcTimer(timerArr)
 
-    // Display timer
-    UICtrl.displayTimer(time, input.milkAmount);
 
-    // Alert
 
+  };
+
+  var inputData = function() {
+    // Input variable is object according to choices
+    input = UICtrl.getInput();
+    console.log(input);
   };
 
   return {
@@ -260,5 +302,5 @@ var controller = (function(timerCtrl, UICtrl) {
     }
   };
 
-})(timerController, UIController);
+})(dataController, UIController);
 controller.init();
