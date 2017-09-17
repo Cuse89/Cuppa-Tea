@@ -271,10 +271,10 @@ var controller = (function(dataCtrl, UICtrl) {
       UICtrl.brewTimer(timeBrew, input.milkAmount);
     } else if (input.timer === 'cold') {
       // Start/display second timer time, same time as first - progress not visible
-      UICtrl.coldTimer(timeCold);
+      UICtrl.coldTimer(timeBoth);
     } else if (input.timer === 'both') {
       UICtrl.brewTimer(timeBrew, input.milkAmount);
-      UICtrl.coldTimer(timeBoth);
+      UICtrl.coldTimer(timeCold);
     };
 
 
