@@ -70,21 +70,23 @@
               </select>
         </div>
         <br>
+        <div>
+          <div id="select_timer">
+          <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
+          <input type="radio" id="cold" name="timer" value="cold"> It's getting cold timer<br>
+          <input type="radio" id="both" name="timer" value="both"> Both
+        </div><br>
+        </div>
+        <br>
         <button id="set_timer">Set Timer</button>
-        <p id="countdown"></p>
       </div>
     </div>
     <div class="w3-col s12 m8 l9">
       <div id="main">
-        <img id="notepad" src="notepad.png"/>
-        <img id="fly" src="fly.png"/>
+        <img id="notepad" src="notepad.png" />
         <div id="tea_wrapper">
           <div class="cup"></div>
-          <div class="tea">
-            <br>
-            <h2 class="w3-center" id="talking"></h2>
-            <h2 class="w3-center" id="percentage"></h2>
-          </div>
+          <div class="tea"></div>
           <div class="handle"></div>
           <div class="ripple"></div>
           <div class="spill" id="spill1"></div>
@@ -95,6 +97,16 @@
           <div class="spill" id="spill6"></div>
           <div class="spill" id="spill7"></div>
         </div>
+      </div>
+    </div>
+    <div class="w3-col s12 m12 l12" id="timings">
+      <div class="w3-col s12 m6 l6" id="timings1">
+        <div id="bar1"></div>
+        <h4 class="w3-center" id="percentage"></h4>
+      </div>
+      <div class="w3-col s12 m6 l6" id="timings2">
+        <div id="bar2"></div>
+        <h4 class="w3-center" id="cold_timer"></h4>
       </div>
     </div>
   </div>

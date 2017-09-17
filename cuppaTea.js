@@ -95,6 +95,7 @@ var UIController = (function() {
     milkAmount: 'milk_amount',
     roomTemp: 'room_temp',
     cupColour: 'cup_colour',
+    timer: 'select_timers',
     countDown: 'countdown'
   };
 
@@ -106,23 +107,24 @@ var UIController = (function() {
     }
   };
 
-  var moveFly = function() {
-    fly = document.getElementById('fly');
-    fly.style.left = 190 + (percent * 2) + 'px';
-    fly.style.top = 475 - (percent * 2) + 'px';
-  };
-
   var formatTime = function(time) {
     var mins, secs, minsDecimal, minsSplit, secsFraction, minsSecs
-    // turn seconds into minutes and seconds
-    minsDecimal = (time / 60).toFixed(2)
-    minsSplit = minsDecimal.split('.');
-    mins = minsSplit[0];
-    secsFraction = minsSplit[1];
-    secs = Math.round((secsFraction * 60) / 100);
+    mins = Math.floor(time/60)
+    secs = time % 60
     minsSecs = mins + ' minutes ' + secs + ' seconds';
     return minsSecs;
   };
+
+  var progressBar = function(time, divId, barId) {
+    var width, timeInMs;
+    width = document.getElementById(divId).offsetWidth
+    timeInMs = time * 1000
+    document.getElementById(barId).animate({
+      width: ['0px', width + 'px']
+    }, timeInMs)
+  };
+
+
 
   return {
 
@@ -156,74 +158,67 @@ var UIController = (function() {
 
 
     getInput: function() {
+      var timerValue;
+      if (document.getElementById('brew').checked) {
+        timerValue = document.getElementById('brew').value;
+      } else if (document.getElementById('cold').checked) {
+        timerValue = document.getElementById('cold').value;
+      } else if (document.getElementById('both').checked) {
+        timerValue = document.getElementById('both').value;
+      }
+      console.log(timerValue);
       return {
         cupType: document.getElementById(DOMstrings.cupType).value,
         surface: document.getElementById(DOMstrings.surface).value,
         milk: document.getElementById(DOMstrings.milk).value,
         milkAmount: document.getElementById(DOMstrings.milkAmount).value,
         roomTemp: document.getElementById(DOMstrings.roomTemp).value,
-        cupColour: document.getElementById(DOMstrings.cupColour).value
+        cupColour: document.getElementById(DOMstrings.cupColour).value,
+        timer: timerValue
       }
     },
 
-    displayFirstTimer: function(time, mlkAmount) {
-      var fly, talking, percentage, x, percent, ms;
-      fly = document.getElementById('fly');
-      talking = document.getElementById("talking");
-      percentage = document.getElementById("percentage");
+    brewTimer: function(time, mlkAmount) {
+      var talking, percentage, x, percent, ms, bar;
+      talking = document.getElementById('talking');
+      percentage = document.getElementById('percentage');
+      bar = document.getElementById('bar1');
       percent = 0;
       ms = time * 10;
       x = setInterval(frame, ms);
-      talking.innerHTML = 'Cooling down. Be patient...';
-      percentage.innerHTML = percent * 1 +'% ready';
-      // text colour white if tea is black
-      if (mlkAmount === 'none') {
-        talking.style.color = 'white';
-        percentage.style.color = 'white';
-      } else {
-        talking.style.color = 'black';
-        percentage.style.color = 'black';
-      }
+      progressBar(time, 'timings1', 'bar1');
+      percentage.innerHTML = 'Cooling down. Be patient...' + percent * 1 +'% ready';
       // function frame peforms each interval
       function frame() {
         percent++;
-        moveFly();
         if (percent == 100) {
-          talking.innerHTML = 'Drink Up!';
-          percentage.innerHTML = percent * 1 +'% ready';
+          percentage.innerHTML = 'Drink Up! ' + percent * 1 +'% ready';
           clearInterval(x);
         } else if (percent > 2 && percent < 8) {
-          talking.innerHTML = 'Watch out for the fly... ';
-          percentage.innerHTML = percent * 1 +'% ready';
+          percentage.innerHTML = 'Watch out for the fly... ' + percent * 1 +'% ready';
         } else if (percent > 10 && percent < 28) {
-          talking.innerHTML = 'Mmmmmmm Tea... ';
-          percentage.innerHTML = percent * 1 +'% ready';
+          percentage.innerHTML = 'Mmmmmmm Tea... ' + percent * 1 +'% ready';
         } else {
-          talking.innerHTML = 'Cooling down. Be patient... ';
-          percentage.innerHTML = percent * 1 +'% ready';
+          percentage.innerHTML = 'Cooling down. Be patient... ' + percent * 1 +'% ready';
         }
       }
     },
 
-    secondTimer: function(time) {
+    coldTimer: function(time) {
       var displayTime = formatTime(time);
-      console.log(displayTime);
-      x = setInterval(countDown, 1000);
-      function countDown() {
-        time--;
-        console.log(time);
-        if (time === 0){
-          clearInterval(x);
-          alert('Drink Up your tea\'s getting cold!')
-        }
-
+      document.getElementById('cold_timer').innerHTML = displayTime;
+      progressBar(time, 'timings2', 'bar2');
+      x = setInterval(coldCountDown, 1000);
+      function coldCountDown() {
+          time--;
+          displayTime = formatTime(time);
+          document.getElementById('cold_timer').innerHTML = displayTime;
+          if (time === 0){
+            clearInterval(x);
+            alert('Drink Up your tea\'s getting cold!')
+          }
       }
     },
-
-
-
-
-
 
     getDOMstrings: function() {
       return DOMstrings;
@@ -266,14 +261,22 @@ var controller = (function(dataCtrl, UICtrl) {
     var timerArr2 = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.cupColour, 1);
 
     // Calculate times
-    var time1 = dataCtrl.calcTimer(465, timerArr1);
-    var time2 = dataCtrl.calcTimer(1380, timerArr2);
+    var timeBrew = dataCtrl.calcTimer(465, timerArr1);
+    var timeCold = dataCtrl.calcTimer(1380, timerArr2);
+    var timeBoth = timeBrew + timeCold
+    console.log(timeBoth);
 
-    // Start and display first timer progress and alert when complete
-    UICtrl.displayFirstTimer(time1, input.milkAmount);
+    if (input.timer === 'brew') {
+      // Start and display first timer progress and alert when complete
+      UICtrl.brewTimer(timeBrew, input.milkAmount);
+    } else if (input.timer === 'cold') {
+      // Start/display second timer time, same time as first - progress not visible
+      UICtrl.coldTimer(timeCold);
+    } else if (input.timer === 'both') {
+      UICtrl.brewTimer(timeBrew, input.milkAmount);
+      UICtrl.coldTimer(timeBoth);
+    };
 
-    // Start/display second timer time, same time as first - progress not visible
-    UICtrl.secondTimer(time2);
 
     // Display time until second alert, in mins/secs
 

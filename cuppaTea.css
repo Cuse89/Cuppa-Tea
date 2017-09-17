@@ -269,17 +269,6 @@ body {
   background-color: #597796;
 }
 
-#talking {
-  z-index: 6;
-  position: absolute;
-}
-#percentage {
-  z-index: 6;
-  position: absolute;
-  top: 111px;
-  left: 32px;
-}
-
 #fly {
   position: absolute;
   top: 475px;
@@ -287,4 +276,31 @@ body {
   z-index: 10;
   width: 100px;
   height: 90px;
+}
+
+#timings {
+  bottom: 0;
+  position: fixed;
+}
+
+#timings1 {
+  height: 50px;
+  background-color: #94c3c3;
+}
+
+#timings2 {
+  height: 50px;
+  background-color: #589c58;
+}
+
+#bar1 {
+  height: 50px;
+  background-color: red;
+  position: absolute;
+}
+
+#bar2 {
+  height: 50px;
+  background-color: orange;
+  position: absolute;
 }
