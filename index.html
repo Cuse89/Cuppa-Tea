@@ -30,12 +30,12 @@
             </select>
         </div>
         <div>
-          <p>Cup colour:</p>
-          <select class="option" id="cup_colour">
-                <option value="white">White</option>
-                <option value="black">Black</option>
-                <option value="mediumDarkness">Medium darkness</option>
-              </select>
+          <p>Darkness of cup:</p>
+          <select class="option" id="darkness">
+            <option value="mediumDarkness">Medium darkness</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+          </select>
         </div>
         <div>
           <p>Milk:
@@ -62,7 +62,7 @@
               </select>
         </div>
         <div>
-          <p>Room temp:</p>
+          <p>Room temperature:</p>
           <select class="option" id="room_temp">
                 <option value="cold">Cold</option>
                 <option selected value="mild">Mild</option>
@@ -73,7 +73,7 @@
         <div>
           <div id="select_timer">
             <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
-            <input type="radio" id="cold" name="timer" value="cold"> It's getting cold timer<br>
+            <input type="radio" id="cold" name="timer" value="cold"> It's getting cold reminder<br>
             <input type="radio" id="both" name="timer" value="both"> Both
           </div><br>
         </div>
@@ -102,11 +102,11 @@
     <div id="progress_bars">
       <div id="brew_wrapper">
         <div class="bar"></div>
-        <h4 class="w3-center display" id="brew_display"></h4>
+        <h4 class="w3-center" id="brew_display"></h4>
       </div>
       <div id="cold_wrapper">
         <div class="bar"></div>
-        <h4 class="w3-center display" id="cold_display"></h4>
+        <h4 class="w3-center" id="cold_display"></h4>
       </div>
     </div>
   </div>
