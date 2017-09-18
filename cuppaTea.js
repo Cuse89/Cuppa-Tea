@@ -84,11 +84,12 @@ var dataController = (function() {
 ////////////////////////////////////////////////////////////////////////////////// UI Controller
 
 var UIController = (function() {
-  var percent, fly;
+  var percent, fly, brewCount, coldCount, animation;
 
   // Finish the DOMstrings for rest of javascript
   var DOMstrings = {
     setTimer: 'set_timer',
+    reset: 'reset',
     cupType: 'cup_type',
     surface: 'surface',
     milk: 'milk',
@@ -109,7 +110,7 @@ var UIController = (function() {
 
   var formatTime = function(time) {
     var mins, secs, minsDecimal, minsSplit, secsFraction, minsSecs
-    mins = Math.floor(time/60)
+    mins = Math.floor(time / 60)
     secs = time % 60
     minsSecs = mins + ' minutes ' + secs + ' seconds';
     return minsSecs;
@@ -172,42 +173,44 @@ var UIController = (function() {
     },
 
     brewTimer: function(time, mlkAmount) {
-      var talking, percentage, x, percent, ms, bar;
+      var talking, percentage, brewDisplay, ms, bar;
       talking = document.getElementById('talking');
-      percentage = document.getElementById('percentage');
+      brewDisplay = document.getElementById('brew_display');
       bar = document.getElementById('bar1');
       percent = 0;
       ms = time * 10;
-      x = setInterval(frame, ms);
-      percentage.innerHTML = 'Cooling down. Be patient...' + percent * 1 +'% ready';
+      brewCount = setInterval(frame, ms);
+      brewDisplay.innerHTML = 'Cooling down. Be patient...' + percent * 1 + '% ready';
       // function frame peforms each interval
       function frame() {
         percent++;
         if (percent == 100) {
-          percentage.innerHTML = 'Drink Up! ' + percent * 1 +'% ready';
-          clearInterval(x);
+          brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
+          clearInterval(brewCount);
         } else if (percent > 2 && percent < 8) {
-          percentage.innerHTML = 'Watch out for the fly... ' + percent * 1 +'% ready';
+          brewDisplay.innerHTML = 'Watch out for the fly... ' + percent * 1 + '% ready';
         } else if (percent > 10 && percent < 28) {
-          percentage.innerHTML = 'Mmmmmmm Tea... ' + percent * 1 +'% ready';
+          brewDisplay.innerHTML = 'Mmmmmmm Tea... ' + percent * 1 + '% ready';
         } else {
-          percentage.innerHTML = 'Cooling down. Be patient... ' + percent * 1 +'% ready';
+          brewDisplay.innerHTML = 'Cooling down. Be patient... ' + percent * 1 + '% ready';
         }
       }
     },
 
     coldTimer: function(time) {
       var displayTime = formatTime(time);
-      document.getElementById('cold_timer').innerHTML = displayTime;
-      x = setInterval(coldCountDown, 1000);
+      coldDisplay = document.getElementById('cold_display')
+      coldDisplay.innerHTML = displayTime;
+      coldCount = setInterval(coldCountDown, 1000);
+
       function coldCountDown() {
-          time--;
-          displayTime = formatTime(time);
-          document.getElementById('cold_timer').innerHTML = displayTime;
-          if (time === 0){
-            clearInterval(x);
-            alert('Drink Up your tea\'s getting cold!')
-          }
+        time--;
+        displayTime = formatTime(time);
+        coldDisplay.innerHTML = displayTime;
+        if (time === 0) {
+          clearInterval(coldCount);
+          alert('Drink Up your tea\'s getting cold!')
+        }
       }
     },
 
@@ -218,15 +221,15 @@ var UIController = (function() {
 
     progressBarWidthBoth: function(brew, cold) {
       document.getElementById('brew_wrapper').style.width = (brew / cold) * 100 + '%';
-      document.getElementById('cold_wrapper').style.width = 100 -((brew / cold) * 100) + '%';
+      document.getElementById('cold_wrapper').style.width = 100 - ((brew / cold) * 100) + '%';
     },
 
-    progressBarAnimate: function(time, divId, barId) {
+    progressBarAnimate: function(time, divId) {
       var width, timeInMs;
       width = document.getElementById(divId).offsetWidth
       console.log(width);
       timeInMs = time * 1000;
-      document.getElementById(barId).animate({
+      animation = document.querySelector('.bar').animate({
         width: ['0px', width + 'px']
       }, timeInMs)
     },
@@ -234,9 +237,19 @@ var UIController = (function() {
     progressBarAnimateBoth: function(time) {
       var timeInMs;
       timeInMs = time * 1000;
-      document.getElementById('bar1').animate({
+      animation = document.querySelector('.bar').animate({
         width: ['0%', '100%']
       }, timeInMs)
+    },
+
+    reset: function() {
+      clearInterval(brewCount);
+      clearInterval(coldCount);
+      document.getElementById('brew_wrapper').style.width = 0;
+      document.getElementById('cold_wrapper').style.width = 0;
+      document.getElementById('brew_display').innerHTML = '';
+      document.getElementById('cold_display').innerHTML = '';
+      animation.cancel();
     },
 
     getDOMstrings: function() {
@@ -251,17 +264,18 @@ var UIController = (function() {
 
 
 var controller = (function(dataCtrl, UICtrl) {
-  var input;
+  var input, dom;
 
   var setupEventListeners = function() {
-    var optionsArr, dom;
+    var optionsArr;
     optionsArr = [].slice.call(document.getElementsByClassName('option'));
     // loops through optionsArr (array)
     optionsArr.forEach(function(element) {
-      element.addEventListener("click", changeImage);
+      element.addEventListener('click', changeImage);
     });
     dom = UICtrl.getDOMstrings();
     document.getElementById(dom.setTimer).addEventListener('click', setTimers);
+    document.getElementById(dom.reset).addEventListener('click', reset);
   };
 
   var changeImage = function() {
@@ -273,6 +287,8 @@ var controller = (function(dataCtrl, UICtrl) {
 
 
   var setTimers = function() {
+    // Disable/ enable button
+    disableTimerBtn();
     // Get field data. Input variable will be an object with choices selected
     inputData();
     // Get time data according to variables
@@ -289,19 +305,21 @@ var controller = (function(dataCtrl, UICtrl) {
       // Start and display first timer progress and alert when complete
       UICtrl.progressBarWidth('brew_wrapper');
       UICtrl.brewTimer(timeBrew, input.milkAmount);
-      UICtrl.progressBarAnimate(timeBrew, 'brew_wrapper', 'bar1');
+      UICtrl.progressBarAnimate(timeBrew, 'brew_wrapper');
     } else if (input.timer === 'cold') {
       // Start/display second timer time, same time as first - progress not visible
       UICtrl.progressBarWidth('cold_wrapper');
       UICtrl.coldTimer(timeCold);
-      UICtrl.progressBarAnimate(timeCold, 'cold_wrapper', 'bar2');
+      UICtrl.progressBarAnimate(timeCold, 'cold_wrapper');
     } else if (input.timer === 'both') {
       UICtrl.progressBarWidthBoth(timeBrew, timeCold)
       UICtrl.brewTimer(timeBrew, input.milkAmount);
       UICtrl.coldTimer(timeCold);
       UICtrl.progressBarAnimateBoth(timeCold);
 
-    };
+    }
+
+
 
 
     /* To do:
@@ -311,11 +329,22 @@ var controller = (function(dataCtrl, UICtrl) {
 
     */
 
-
-
-
-
   };
+
+  var reset = function() {
+    enableTimerBtn();
+    UICtrl.reset();
+  };
+
+  var enableTimerBtn = function() {
+    document.getElementById(dom.reset).disabled = true;
+    document.getElementById(dom.setTimer).disabled = false;
+  };
+
+  var disableTimerBtn = function() {
+    document.getElementById(dom.reset).disabled = false;
+    document.getElementById(dom.setTimer).disabled = true;
+  }
 
   var inputData = function() {
     // Input variable is object according to choices
@@ -327,6 +356,7 @@ var controller = (function(dataCtrl, UICtrl) {
     init: function() {
       setupEventListeners();
       changeImage();
+      enableTimerBtn();
     }
   };
 

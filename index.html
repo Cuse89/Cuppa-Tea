@@ -72,14 +72,13 @@
         <br>
         <div>
           <div id="select_timer">
-          <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
-          <input type="radio" id="cold" name="timer" value="cold"> It's getting cold timer<br>
-          <input type="radio" id="both" name="timer" value="both"> Both
-        </div><br>
+            <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
+            <input type="radio" id="cold" name="timer" value="cold"> It's getting cold timer<br>
+            <input type="radio" id="both" name="timer" value="both"> Both
+          </div><br>
         </div>
         <button id="set_timer">Set Timer</button>
-  MAKE ONLY 1 progres bar that covers 100% of both times. Make first timer width the proportional width to the whole time
-        <p></p>
+        <button id="reset">Reset Timer</button>
       </div>
     </div>
     <div class="w3-col s12 m8 l9">
@@ -102,12 +101,12 @@
     </div>
     <div id="progress_bars">
       <div id="brew_wrapper">
-        <div id="bar1"></div>
-        <h4 class="w3-center" id="percentage"></h4>
+        <div class="bar"></div>
+        <h4 class="w3-center display" id="brew_display"></h4>
       </div>
       <div id="cold_wrapper">
-        <div id="bar2"></div>
-        <h4 class="w3-center" id="cold_timer"></h4>
+        <div class="bar"></div>
+        <h4 class="w3-center display" id="cold_display"></h4>
       </div>
     </div>
   </div>
