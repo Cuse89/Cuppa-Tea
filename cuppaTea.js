@@ -56,7 +56,7 @@ var dataController = (function() {
       black: [30, 60],
       mediumDarkness: [20, 40]
     },
-    timer: [465, 1500]
+    timer: [465, 1800]
   };
 
   return {
@@ -99,10 +99,17 @@ var UIController = (function() {
   };
 
   var formatTime = function(time) {
-    var mins, secs, minsSecs;
+    var mins, secs, minsSecs, minString, secString;
     mins = Math.floor(time / 60);
     secs = time % 60;
-    minsSecs = mins + ' minutes ' + secs + ' seconds';
+    minString = ' minutes ';
+    secString = ' seconds';
+    if (mins === 1) {
+      minString = ' minute '
+    } else if (secs === 1) {
+      secString = ' second'
+    }
+    minsSecs = mins + minString + secs + secString;
     return minsSecs;
   };
 
@@ -183,13 +190,13 @@ var UIController = (function() {
     coldTimer: function(time) {
       var displayTime = formatTime(time);
       coldDisplay = document.getElementById('cold_display');
-      coldDisplay.innerHTML = 'Reminder it\'s getting cold in ' + displayTime;
+      coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
       coldCount = setInterval(coldCountDown, 1000);
 
       function coldCountDown() {
         time--;
         displayTime = formatTime(time);
-        coldDisplay.innerHTML = 'Reminder it\'s getting cold in ' + displayTime;
+        coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
         if (time === 0) {
           clearInterval(coldCount);
           alert('Drink Up your tea\'s getting cold!')
