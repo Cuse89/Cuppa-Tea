@@ -278,29 +278,34 @@ body {
   height: 90px;
 }
 
-#timings {
+#progress_bars {
   bottom: 0;
   position: fixed;
+  width: 100%;
 }
 
-#timings1 {
+#brew_wrapper {
   height: 50px;
   background-color: #94c3c3;
+  float: left;
 }
 
-#timings2 {
+#cold_wrapper {
   height: 50px;
   background-color: #589c58;
+  float: right;
 }
 
 #bar1 {
   height: 50px;
   background-color: red;
   position: absolute;
+  opacity: 0.5;
 }
 
 #bar2 {
   height: 50px;
   background-color: orange;
   position: absolute;
+  opacity: 0.5;
 }

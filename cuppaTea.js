@@ -115,14 +115,7 @@ var UIController = (function() {
     return minsSecs;
   };
 
-  var progressBar = function(time, divId, barId) {
-    var width, timeInMs;
-    width = document.getElementById(divId).offsetWidth
-    timeInMs = time * 1000
-    document.getElementById(barId).animate({
-      width: ['0px', width + 'px']
-    }, timeInMs)
-  };
+
 
 
 
@@ -186,7 +179,6 @@ var UIController = (function() {
       percent = 0;
       ms = time * 10;
       x = setInterval(frame, ms);
-      progressBar(time, 'timings1', 'bar1');
       percentage.innerHTML = 'Cooling down. Be patient...' + percent * 1 +'% ready';
       // function frame peforms each interval
       function frame() {
@@ -207,7 +199,6 @@ var UIController = (function() {
     coldTimer: function(time) {
       var displayTime = formatTime(time);
       document.getElementById('cold_timer').innerHTML = displayTime;
-      progressBar(time, 'timings2', 'bar2');
       x = setInterval(coldCountDown, 1000);
       function coldCountDown() {
           time--;
@@ -218,6 +209,34 @@ var UIController = (function() {
             alert('Drink Up your tea\'s getting cold!')
           }
       }
+    },
+
+    progressBarWidth: function(wrapper) {
+      document.getElementById(wrapper).style.width = '100%'
+
+    },
+
+    progressBarWidthBoth: function(brew, cold) {
+      document.getElementById('brew_wrapper').style.width = (brew / cold) * 100 + '%';
+      document.getElementById('cold_wrapper').style.width = 100 -((brew / cold) * 100) + '%';
+    },
+
+    progressBarAnimate: function(time, divId, barId) {
+      var width, timeInMs;
+      width = document.getElementById(divId).offsetWidth
+      console.log(width);
+      timeInMs = time * 1000;
+      document.getElementById(barId).animate({
+        width: ['0px', width + 'px']
+      }, timeInMs)
+    },
+
+    progressBarAnimateBoth: function(time) {
+      var timeInMs;
+      timeInMs = time * 1000;
+      document.getElementById('bar1').animate({
+        width: ['0%', '100%']
+      }, timeInMs)
     },
 
     getDOMstrings: function() {
@@ -268,21 +287,27 @@ var controller = (function(dataCtrl, UICtrl) {
 
     if (input.timer === 'brew') {
       // Start and display first timer progress and alert when complete
+      UICtrl.progressBarWidth('brew_wrapper');
       UICtrl.brewTimer(timeBrew, input.milkAmount);
+      UICtrl.progressBarAnimate(timeBrew, 'brew_wrapper', 'bar1');
     } else if (input.timer === 'cold') {
       // Start/display second timer time, same time as first - progress not visible
-      UICtrl.coldTimer(timeBoth);
+      UICtrl.progressBarWidth('cold_wrapper');
+      UICtrl.coldTimer(timeCold);
+      UICtrl.progressBarAnimate(timeCold, 'cold_wrapper', 'bar2');
     } else if (input.timer === 'both') {
+      UICtrl.progressBarWidthBoth(timeBrew, timeCold)
       UICtrl.brewTimer(timeBrew, input.milkAmount);
       UICtrl.coldTimer(timeCold);
+      UICtrl.progressBarAnimateBoth(timeCold);
+
     };
 
-
-    // Display time until second alert, in mins/secs
 
     /* To do:
     - finished tea button - cancels second timer
     - disable options whilst timing
+    -
 
     */
 
