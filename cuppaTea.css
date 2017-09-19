@@ -14,7 +14,7 @@ html body {
   position: relative;
   height: 600px;
   width: 550px;
-  left: 50px;
+  left: 40px;
   top: 20px;
 }
 
@@ -23,7 +23,7 @@ html body {
   position: relative;
   top: 120px;
   width: 400px;
-  left: 200px;
+  left: 170px;
 }
 
 select {
@@ -36,7 +36,7 @@ select {
   background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat;
   background-color: #fff;
   color: #444444;
-  margin: -5px !important;
+  margin: -6px !important;
   line-height: 20px !important;
   appearance: none;
   -webkit-appearance: none;
