@@ -11,36 +11,38 @@
 
 <body>
   <div class="w3-row">
-    <div class="w3-col s12 m4 l3">
-      <div id="dropdowns">
-        <div>
-          <p>Type of cup:</p>
-          <select class="option" id="cup_type">
+
+    <div class="w3-col s11 m4 l3" id="dropdowns">
+      <div class="dropdown">
+        <button class="w3-hide-large" id="instructions">How to use</button>
+        <p>Type of cup:</p>
+        <select class="option" id="cup_type">
+<!--option values must have same string as within tea object in jscript -->
               <option value="mug">Mug</option>
               <option value="glass">Glass</option>
               <option value="teaCup">Tea cup</option>
             </select>
-        </div>
-        <div>
-          <p>Surface area size of cup:</p>
-          <select class="option" id="surface">
+      </div>
+      <div class="dropdown">
+        <p>Surface area size of cup:</p>
+        <select class="option" id="surface">
               <option value="small">Small</option>
               <option selected value="medium">Medium</option>
               <option value="large">Large</option>
             </select>
-        </div>
-        <div>
-          <p>Darkness of cup:</p>
-          <select class="option" id="darkness">
+      </div>
+      <div class="dropdown">
+        <p>Darkness of cup:</p>
+        <select class="option" id="darkness">
             <option value="mediumDarkness">Medium darkness</option>
             <option value="white">White</option>
             <option value="black">Black</option>
           </select>
-        </div>
-        <div>
-          <p>Milk:
-            <p>
-              <select class="option" id="milk">
+      </div>
+      <div class="dropdown">
+        <p>Milk:
+          <p>
+            <select class="option" id="milk">
                 <option value="none">None</option>
                 <option value="skimmed">Skimmed</option>
                 <option value="semi">Semi-skimmed</option>
@@ -51,65 +53,64 @@
                 <option value="coconut">Coconut milk</option>
                 <option value="soya">Soya milk</option>
               </select>
-        </div>
-        <div>
-          <p>Milk amount:</p>
-          <select class="option" id="milk_amount">
+      </div>
+      <div class="dropdown">
+        <p>Milk amount:</p>
+        <select class="option" id="milk_amount">
                 <option value="little">Little amount</option>
                 <option value="average">Average amount</option>
                 <option value="lots">Lots</option>
                 <option selected value="none">None</option>
               </select>
-        </div>
-        <div>
-          <p>Room temperature:</p>
-          <select class="option" id="room_temp">
+      </div>
+      <div class="dropdown">
+        <p>Room temperature:</p>
+        <select class="option" id="room_temp">
                 <option value="cold">Cold</option>
                 <option selected value="mild">Mild</option>
                 <option value="hot">Hot</option>
               </select>
+      </div>
+      <br>
+      <div>
+        <div id="select_timer">
+          <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
+          <input type="radio" id="cold" name="timer" value="cold"> It's getting cold reminder<br>
+          <input type="radio" id="both" name="timer" value="both"> Both
         </div>
         <br>
-        <div>
-          <div id="select_timer">
-            <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
-            <input type="radio" id="cold" name="timer" value="cold"> It's getting cold reminder<br>
-            <input type="radio" id="both" name="timer" value="both"> Both
-          </div><br>
-        </div>
-        <button id="set_timer">Set Timer</button>
-        <button id="reset">Reset Timer</button>
       </div>
+      <button id="set_timer">Set Timer</button>
+      <button id="reset">Reset Timer</button>
     </div>
-    <div class="w3-col s12 m8 l9">
-      <div id="main">
-        <img id="notepad" src="notepad.png" />
-        <div id="tea_wrapper">
-          <div class="cup"></div>
-          <div class="tea"></div>
-          <div class="handle"></div>
-          <div class="ripple"></div>
-          <div class="spill" id="spill1"></div>
-          <div class="spill" id="spill2"></div>
-          <div class="spill" id="spill3"></div>
-          <div class="spill" id="spill4"></div>
-          <div class="spill" id="spill5"></div>
-          <div class="spill" id="spill6"></div>
-          <div class="spill" id="spill7"></div>
-        </div>
-      </div>
+    <div class="w3-col s12 m6 l4 w3-hide-small w3-hide-medium" id="notepad_wrapper">
+      <img id="notepad" src="notepad.png" />
+    </div>
+    <div class="w3-col s8 m8 l4 w3-hide-small" id="tea_wrapper">
+        <div class="cup"></div>
+        <div class="tea"></div>
+        <div class="handle"></div>
+        <div class="ripple"></div>
+        <div class="spill" id="spill1"></div>
+        <div class="spill" id="spill2"></div>
+        <div class="spill" id="spill3"></div>
+        <div class="spill" id="spill4"></div>
+        <div class="spill" id="spill5"></div>
+        <div class="spill" id="spill6"></div>
+        <div class="spill" id="spill7"></div>
+    </div>
     </div>
     <div id="progress_bars">
       <div id="brew_wrapper">
         <div class="bar"></div>
-        <h4 class="w3-center" id="brew_display"></h4>
+        <h4 class="w3-center w3-hide-small" id="brew_display"></h4>
       </div>
       <div id="cold_wrapper">
         <div class="bar"></div>
-        <h4 class="w3-center" id="cold_display"></h4>
+        <h4 class="w3-center w3-hide-small" id="cold_display"></h4>
       </div>
     </div>
-  </div>
+
   <script src="cuppaTea.js"></script>
 </body>
 

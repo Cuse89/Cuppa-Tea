@@ -113,6 +113,10 @@ var UIController = (function() {
     return minsSecs;
   };
 
+  var displayProgressBars = function() {
+    document.getElementById('progress_bars').style.display = 'block';
+  };
+
 
 
 
@@ -206,9 +210,11 @@ var UIController = (function() {
 
     progressBarWidth: function(wrapper) {
       document.getElementById(wrapper).style.width = '100%';
+      displayProgressBars();
     },
 
     progressBarWidthBoth: function(brew, cold) {
+      displayProgressBars();
       document.getElementById('brew_wrapper').style.width = (brew / cold) * 100 + '%';
       document.getElementById('cold_wrapper').style.width = 100 - ((brew / cold) * 100) + '%';
     },
@@ -310,7 +316,7 @@ var controller = (function(dataCtrl, UICtrl) {
     enableTimerBtn();
     UICtrl.reset();
   };
-
+// these 2 need to go in UI
   var enableTimerBtn = function() {
     document.getElementById('reset').disabled = true;
     document.getElementById('set_timer').disabled = false;

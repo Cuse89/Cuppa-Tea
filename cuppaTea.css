@@ -1,34 +1,58 @@
-body {
+html body {
   font-family: tahoma;
-  font-size: 20px;
-}
-
-#main {
-  position: absolute;
-  left: 400px;
-}
-
-#notepad {
-  position: absolute;
-  height: 600px;
-  width: 550px;
-  left: -100px;
-  top: 20px;
+  font-size: 1em;
 }
 
 #dropdowns {
-  position: absolute;
-  left: 40px;
+  position: relative;
+  left: 2%;
+  margin-right: 40px;
+  margin-bottom: 60px;
+}
+
+#notepad {
+  position: relative;
+  height: 600px;
+  width: 550px;
+  left: 50px;
   top: 20px;
 }
 
+
 #tea_wrapper {
-  position: absolute;
-  left: 460px;
-  width: 200px;
-  height: 200px;
-  top: 80px;
+  position: relative;
+  top: 120px;
+  width: 400px;
+  left: 200px;
 }
+
+select {
+  display: block;
+  padding: 2px 50px 2px 19px !important;
+  width: 100%;
+  height: auto !important;
+  border: 1px solid #e3e3e3;
+  border-radius: 7px;
+  background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat;
+  background-color: #fff;
+  color: #444444;
+
+  line-height: 20px !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:disabled {
+  color: #fff;
+}
+
+button {
+  border: 1px solid #e3e3e3;
+  padding: 10px 50px 10px 19px !important;
+  width: 100%;
+}
+
 
 .cold {
   background-color: #c2c2fd;
@@ -59,50 +83,50 @@ body {
 }
 
 #spill1 {
-  width: 70%;
-  height: 70%;
+  width: 140px;
+  height: 140px;
   top: 210px;
   left: 157px;
 }
 
 #spill2 {
-  width: 60%;
-  height: 60%;
+  width: 120px;
+  height: 120px;
   top: 216px;
   left: 70px;
 }
 
 #spill3 {
-  width: 40%;
-  height: 40%;
+  width: 80px;
+  height: 80px;
   top: 166px;
   left: 200px;
 }
 
 #spill4 {
-  width: 25%;
-  height: 25%;
+  width: 50px;
+  height: 50px;
   top: 365px;
   left: 100px;
 }
 
 #spill5 {
-  width: 10%;
-  height: 10%;
+  width: 20px;
+  height: 20px;
   top: 422px;
   left: 143px;
 }
 
 #spill6 {
-  width: 15%;
-  height: 15%;
+  width: 30px;
+  height: 30px;
   top: 130px;
   left: -140px;
 }
 
 #spill7 {
-  width: 40%;
-  height: 40%;
+  width: 80px;
+  height: 80px;
   top: 110px;
   left: -70px;
 }
@@ -267,19 +291,11 @@ body {
   background-color: #597796;
 }
 
-#fly {
-  position: absolute;
-  top: 475px;
-  left: 190px;
-  z-index: 10;
-  width: 100px;
-  height: 90px;
-}
-
 #progress_bars {
   bottom: 0;
   position: fixed;
   width: 100%;
+  display: none;
 }
 
 #brew_wrapper {
@@ -299,4 +315,8 @@ body {
   background-color: #141448;
   position: absolute;
   opacity: 0.5;
+}
+
+#instructions {
+  margin-top: 10px;
 }
