@@ -11,10 +11,9 @@
 
 <body>
   <div class="w3-row">
-
     <div class="w3-col s11 m4 l3" id="dropdowns">
       <div class="dropdown">
-        <button class="w3-hide-large" id="instructions">How to use</button>
+        <button class="w3-hide-large" id="instructions_btn">How to use</button>
         <p>Type of cup:</p>
         <select class="option" id="cup_type">
 <!--option values must have same string as within tea object in jscript -->
@@ -110,7 +109,12 @@
         <h4 class="w3-center w3-hide-small" id="cold_display"></h4>
       </div>
     </div>
-
+    <div id="instructions_modal">
+  <div id="modal_content">
+    <span class="close">&times;</span>
+    <p>Welcome to the Cuppa Tea app<br><br>Poured a cuppa tea?<br><br>Select the options and click Set Timer.<br><br>Brew Timer - Let it brew and cool a little, I've calculated the moment for your perfect sip. (That's the blue bar)<br><br>It's getting cold reminder - I can also remind you if it's going to get cold. (That's the green bar)<br><br>Enjoy!</p>
+  </div>
+</div>
   <script src="cuppaTea.js"></script>
 </body>
 

@@ -17,7 +17,6 @@ CONTROLLER MODULE
 var dataController = (function() {
   var seconds;
 
-
   var tea = {
     cupType: {
       mug: [0, 0], // numbers are the timings (secs) to be used for timer
@@ -117,10 +116,6 @@ var UIController = (function() {
     document.getElementById('progress_bars').style.display = 'block';
   };
 
-
-
-
-
   return {
 
     adjustImage: function(type, surface, mlk, mlkAmount, rmTmp, dark) {
@@ -147,7 +142,6 @@ var UIController = (function() {
       changeSpilldark(mlkAmount);
       document.body.className = rmTmp;
     },
-
 
     getInput: function() {
       var timerValue;
@@ -185,6 +179,7 @@ var UIController = (function() {
         if (percent == 100) {
           brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
           clearInterval(brewCount);
+          alert('Your tea is served!')
         } else {
           brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
         }
@@ -246,7 +241,6 @@ var UIController = (function() {
       animation.cancel();
     },
 
-    // these 2 need to go in UI
     enableTimerBtn: function() {
       document.getElementById('reset').disabled = true;
       document.getElementById('set_timer').disabled = false;
@@ -255,6 +249,14 @@ var UIController = (function() {
     disableTimerBtn: function() {
       document.getElementById('reset').disabled = false;
       document.getElementById('set_timer').disabled = true;
+    },
+
+    openInstructions: function() {
+      document.getElementById('instructions_modal').style.display = 'block';
+    },
+
+    closeInstructions: function() {
+      document.getElementById('instructions_modal').style.display = 'none';
     },
 
     getDOMstrings: function() {
@@ -280,6 +282,8 @@ var controller = (function(dataCtrl, UICtrl) {
     });
     document.getElementById('set_timer').addEventListener('click', setTimers);
     document.getElementById('reset').addEventListener('click', reset);
+    document.getElementById('instructions_btn').addEventListener('click', UICtrl.openInstructions);
+    document.getElementsByClassName("close")[0].addEventListener('click', UICtrl.closeInstructions);
   };
 
   var changeImage = function() {
@@ -288,7 +292,6 @@ var controller = (function(dataCtrl, UICtrl) {
     // Display new image according to input object
     UICtrl.adjustImage(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness)
   };
-
 
   var setTimers = function() {
     // Disable/ enable button
@@ -307,11 +310,13 @@ var controller = (function(dataCtrl, UICtrl) {
       UICtrl.progressBarWidth('brew_wrapper');
       UICtrl.brewTimer(timeBrew, input.milkAmount);
       UICtrl.progressBarAnimate(timeBrew, 'brew_wrapper');
+
     } else if (input.timer === 'cold') {
       timeCold = dataCtrl.calcTimer(coldObj);
       UICtrl.progressBarWidth('cold_wrapper');
       UICtrl.coldTimer(timeCold);
       UICtrl.progressBarAnimate(timeCold, 'cold_wrapper');
+
     } else if (input.timer === 'both') {
       timeBrew = dataCtrl.calcTimer(brewObj);
       timeCold = dataCtrl.calcTimer(coldObj);
@@ -327,7 +332,6 @@ var controller = (function(dataCtrl, UICtrl) {
     UICtrl.enableTimerBtn();
     UICtrl.reset();
   };
-
 
   var inputData = function() {
     // Input variable is object according to choices
