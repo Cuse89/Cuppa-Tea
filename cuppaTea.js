@@ -116,6 +116,11 @@ var UIController = (function() {
     document.getElementById('progress_bars').style.display = 'block';
   };
 
+  var alarm = function() {
+    var audio = new Audio('woop.mp3');
+    audio.play();
+  }
+
   return {
 
     adjustImage: function(type, surface, mlk, mlkAmount, rmTmp, dark) {
@@ -179,7 +184,8 @@ var UIController = (function() {
         if (percent == 100) {
           brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
           clearInterval(brewCount);
-          alert('Your tea is served!')
+          alarm();
+          setTimeout(function(){ alert('Your tea is served!'); }, 2000);
         } else {
           brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
         }
@@ -198,7 +204,8 @@ var UIController = (function() {
         coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
         if (time === 0) {
           clearInterval(coldCount);
-          alert('Drink Up your tea\'s getting cold!')
+          alarm();
+          setTimeout(function(){ alert('Drink Up your tea\'s getting cold!'); }, 2000);
         }
       };
     },
