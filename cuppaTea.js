@@ -119,6 +119,10 @@ var UIController = (function() {
   var alarm = function() {
     var audio = new Audio('woop.mp3');
     audio.play();
+    audio.addEventListener("ended", function(){
+     audio.currentTime = 0;
+     alert('Your tea is served!');
+});
   }
 
   return {
@@ -185,7 +189,6 @@ var UIController = (function() {
           brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
           clearInterval(brewCount);
           alarm();
-          setTimeout(function(){ alert('Your tea is served!'); }, 2000);
         } else {
           brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
         }
