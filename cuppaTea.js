@@ -1,18 +1,4 @@
-/*
-
-DATA MODULE
-- Calculate timer according to tea variables
-
-UI MODULE
-- Get option values from dropdown
-
-CONTROLLER MODULE
-- Add event handler
-
-
-*/
-////////////////////////////////////////////////////////////////////////////////// Data Controller
-
+// Data Controller
 
 var dataController = (function() {
   var seconds;
@@ -116,13 +102,27 @@ var UIController = (function() {
     document.getElementById('progress_bars').style.display = 'block';
   };
 
-  var alarm = function() {
-    var audio = new Audio('woop.mp3');
-    audio.play();
-    audio.addEventListener("ended", function(){
-     audio.currentTime = 0;
-     alert('Your tea is served!');
-});
+  var alarm = function(timer) {
+    var audioBrew = new Audio('bell.mp3');
+    var audioCold = new Audio('woop.mp3');
+    if (timer === 'brew') {
+      audioBrew.play();
+      audioBrew.addEventListener("ended", function() {
+        audioBrew.currentTime = 0;
+        displayAlert('Your tea is served!');
+      });
+    } else if (timer === 'cold') {
+      audioCold.play();
+      audioCold.addEventListener("ended", function() {
+        audioCold.currentTime = 0;
+        displayAlert('Drink Up!');
+      });
+    }
+
+  };
+
+  var displayAlert = function(alertString) {
+    alert(alertString);
   }
 
   return {
@@ -188,7 +188,7 @@ var UIController = (function() {
         if (percent == 100) {
           brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
           clearInterval(brewCount);
-          alarm();
+          alarm('brew');
         } else {
           brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
         }
@@ -207,8 +207,7 @@ var UIController = (function() {
         coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
         if (time === 0) {
           clearInterval(coldCount);
-          alarm();
-          setTimeout(function(){ alert('Drink Up your tea\'s getting cold!'); }, 2000);
+          alarm('cold');
         }
       };
     },
