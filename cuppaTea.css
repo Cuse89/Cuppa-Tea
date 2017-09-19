@@ -36,7 +36,7 @@ select {
   background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat;
   background-color: #fff;
   color: #444444;
-
+  margin: -3px !important;
   line-height: 20px !important;
   appearance: none;
   -webkit-appearance: none;
