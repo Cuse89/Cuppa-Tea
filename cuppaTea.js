@@ -246,6 +246,17 @@ var UIController = (function() {
       animation.cancel();
     },
 
+    // these 2 need to go in UI
+    enableTimerBtn: function() {
+      document.getElementById('reset').disabled = true;
+      document.getElementById('set_timer').disabled = false;
+    },
+
+    disableTimerBtn: function() {
+      document.getElementById('reset').disabled = false;
+      document.getElementById('set_timer').disabled = true;
+    },
+
     getDOMstrings: function() {
       return DOMstrings;
     }
@@ -281,7 +292,7 @@ var controller = (function(dataCtrl, UICtrl) {
 
   var setTimers = function() {
     // Disable/ enable button
-    disableTimerBtn();
+    UICtrl.disableTimerBtn();
     // Get field data. Input variable will be an object with choices selected
     inputData();
     // Get time data according to variables
@@ -291,7 +302,7 @@ var controller = (function(dataCtrl, UICtrl) {
     if (input.timer === 'brew') {
       // Calculate times
       timeBrew = dataCtrl.calcTimer(brewObj);
-      console.log('Brew time ' + timeBrew + ' secs' );
+      console.log('Brew time ' + timeBrew + ' secs');
       // Start and display first timer progress and alert when complete
       UICtrl.progressBarWidth('brew_wrapper');
       UICtrl.brewTimer(timeBrew, input.milkAmount);
@@ -304,7 +315,7 @@ var controller = (function(dataCtrl, UICtrl) {
     } else if (input.timer === 'both') {
       timeBrew = dataCtrl.calcTimer(brewObj);
       timeCold = dataCtrl.calcTimer(coldObj);
-      console.log('Brew time ' + timeBrew + ' secs' );
+      console.log('Brew time ' + timeBrew + ' secs');
       UICtrl.progressBarWidthBoth(timeBrew, timeCold)
       UICtrl.brewTimer(timeBrew, input.milkAmount);
       UICtrl.coldTimer(timeCold);
@@ -313,19 +324,10 @@ var controller = (function(dataCtrl, UICtrl) {
   };
 
   var reset = function() {
-    enableTimerBtn();
+    UICtrl.enableTimerBtn();
     UICtrl.reset();
   };
-// these 2 need to go in UI
-  var enableTimerBtn = function() {
-    document.getElementById('reset').disabled = true;
-    document.getElementById('set_timer').disabled = false;
-  };
 
-  var disableTimerBtn = function() {
-    document.getElementById('reset').disabled = false;
-    document.getElementById('set_timer').disabled = true;
-  }
 
   var inputData = function() {
     // Input variable is object according to choices
@@ -336,7 +338,7 @@ var controller = (function(dataCtrl, UICtrl) {
     init: function() {
       setupEventListeners();
       changeImage();
-      enableTimerBtn();
+      UICtrl.enableTimerBtn();
     }
   };
 
