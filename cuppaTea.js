@@ -12,7 +12,7 @@ Modules -
 var dataController = (function() {
   var seconds;
 
-// Store timer variable in object. Brew timings and Cold timings for each secs
+  // Store timer variable in object. Brew timings and Cold timings for each secs
   var tea = {
     cupType: {
       mug: [0, 0],
@@ -65,6 +65,7 @@ var dataController = (function() {
         darkness: tea.darkness[dark][num],
         timer: tea.timer[num]
       };
+      console.log(timerObj);
       return timerObj;
     },
 
@@ -290,7 +291,7 @@ var UIController = (function() {
 
 
 var controller = (function(dataCtrl, UICtrl) {
-  var input, timeBrew, timeCold;
+  var input, timeBrew, timeCold, brewObj, coldObj;
 
   var setupEventListeners = function() {
     var optionsArr;
@@ -317,11 +318,10 @@ var controller = (function(dataCtrl, UICtrl) {
     UICtrl.disableTimerBtn();
     // Get field data. Input variable will be an object with choices selected
     inputData();
-    // Get time data according to variables
-    var brewObj = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness, input.timer, 0);
-    var coldObj = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness, input.timer, 1);
 
     if (input.timer === 'brew') {
+      // Get time data according to variables
+      addVariables('brew');
       // Calculate times
       timeBrew = dataCtrl.calcTimer(brewObj);
       console.log('Brew time ' + timeBrew + ' secs');
@@ -331,12 +331,15 @@ var controller = (function(dataCtrl, UICtrl) {
       UICtrl.progressBarAnimate(timeBrew, 'brew_wrapper');
 
     } else if (input.timer === 'cold') {
+      addVariables('cold');
       timeCold = dataCtrl.calcTimer(coldObj);
       UICtrl.progressBarWidth('cold_wrapper');
       UICtrl.coldTimer(timeCold);
       UICtrl.progressBarAnimate(timeCold, 'cold_wrapper');
 
     } else if (input.timer === 'both') {
+      addVariables('brew');
+      addVariables('cold');
       timeBrew = dataCtrl.calcTimer(brewObj);
       timeCold = dataCtrl.calcTimer(coldObj);
       console.log('Brew time ' + timeBrew + ' secs');
@@ -355,6 +358,14 @@ var controller = (function(dataCtrl, UICtrl) {
   var inputData = function() {
     // Input variable is object according to choices
     input = UICtrl.getInput();
+  };
+
+  var addVariables = function(timer) {
+    if (timer === 'brew') {
+      brewObj = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness, input.timer, 0);
+    } else if (timer === 'cold') {
+      coldObj = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness, input.timer, 1);
+    }
   };
 
   return {
