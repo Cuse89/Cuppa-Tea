@@ -1,11 +1,21 @@
+/*
+Modules -
+-Data Controller -  Stores data for app and calculates times
+-UI Controller - Deals with User Interface, and everything visual
+-Global Controller - Does not perform actual functions for the app - Links the Data and UI Controllers and brings eveything together. (The main hub)
+
+*/
+
+
 // Data Controller
 
 var dataController = (function() {
   var seconds;
 
+// Store timer variable in object. Brew timings and Cold timings for each secs
   var tea = {
     cupType: {
-      mug: [0, 0], // numbers are the timings (secs) to be used for timer
+      mug: [0, 0],
       glass: [30, 100],
       teaCup: [30, 100]
     },
