@@ -13,7 +13,7 @@ var dataController = (function() {
   var seconds;
 
   // Store timer variable in object. Brew timings and Cold timings for each secs
-  var tea = {
+  const tea = {
     cupType: {
       mug: [0, 0],
       glass: [30, 100],
@@ -70,7 +70,7 @@ var dataController = (function() {
     },
 
     calcTimer: function(obj) {
-      var timeSecs, timeMs;
+      var time, timeSecs, timeMs;
       time = obj.timer - (obj.type + obj.surface + obj.milk + obj.milkAmount + obj.roomTemp + obj.darkness);
       // time is in seconds
       return time;
@@ -114,8 +114,8 @@ var UIController = (function() {
   };
 
   var alarm = function(timer) {
-    var audioBrew = new Audio('bell.mp3');
-    var audioCold = new Audio('woop.mp3');
+    const audioBrew = new Audio('bell.mp3');
+    const audioCold = new Audio('woop.mp3');
     if (timer === 'brew') {
       audioBrew.play();
       audioBrew.addEventListener("ended", function() {
@@ -277,11 +277,8 @@ var UIController = (function() {
 
     closeInstructions: function() {
       document.getElementById('instructions_modal').style.display = 'none';
-    },
-
-    getDOMstrings: function() {
-      return DOMstrings;
     }
+
   }
 
 })();
