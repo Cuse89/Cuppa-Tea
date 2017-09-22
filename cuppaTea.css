@@ -26,6 +26,15 @@ html body {
   left: 150px;
 }
 
+#checkboxes {
+  width: 100%;
+  height: 80px;
+}
+
+#select_timer {
+  float: left;
+}
+
 select {
   display: block;
   padding: 2px 50px 2px 19px !important;
@@ -356,4 +365,26 @@ button {
   color: black;
   text-decoration: none;
   cursor: pointer;
+}
+
+.sound {
+  width: 50px;
+  float: right;
+  cursor: pointer;
+}
+
+input#un_mute {
+  display: none;
+}
+
+.unmute img {
+  display: none;
+}
+
+input#un_mute:checked ~ .unmute img {
+  display: initial;
+}
+
+input#un_mute:checked ~ .mute img {
+  display: none;
 }

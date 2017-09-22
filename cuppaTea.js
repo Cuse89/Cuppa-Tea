@@ -84,7 +84,11 @@ var dataController = (function() {
 ////////////////////////////////////////////////////////////////////////////////// UI Controller
 
 var UIController = (function() {
-  var percent, fly, brewCount, coldCount, animation;
+  var percent, fly, brewCount, coldCount, animation, timer;
+  var audio = true;
+  var alertBrew = 'Your tea is served!'
+  var alertCold = 'Drink Up!'
+
 
   var changeSpilldark = function(spillClass) {
     var spillArr;
@@ -113,27 +117,31 @@ var UIController = (function() {
     document.getElementById('progress_bars').style.display = 'block';
   };
 
-  var alarm = function(timer) {
+  var ready = function() {
+    audio ? alarm() : displayAlert();
+  }
+
+  var alarm = function() {
     const audioBrew = new Audio('bell.mp3');
     const audioCold = new Audio('woop.mp3');
     if (timer === 'brew') {
       audioBrew.play();
       audioBrew.addEventListener("ended", function() {
         audioBrew.currentTime = 0;
-        displayAlert('Your tea is served!');
+        displayAlert();
       });
     } else if (timer === 'cold') {
       audioCold.play();
       audioCold.addEventListener("ended", function() {
         audioCold.currentTime = 0;
-        displayAlert('Drink Up!');
+        displayAlert();
       });
     }
 
   };
 
-  var displayAlert = function(alertString) {
-    alert(alertString);
+  var displayAlert = function() {
+    timer === 'brew' ? alert(alertBrew) : alert(alertCold);
   }
 
   return {
@@ -198,8 +206,9 @@ var UIController = (function() {
         percent++;
         if (percent == 100) {
           brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
+          timer = 'brew';
           clearInterval(brewCount);
-          alarm('brew');
+          ready();
         } else {
           brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
         }
@@ -211,14 +220,14 @@ var UIController = (function() {
       coldDisplay = document.getElementById('cold_display');
       coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
       coldCount = setInterval(coldCountDown, 1000);
-
       function coldCountDown() {
         time--;
         displayTime = formatTime(time);
         coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
         if (time === 0) {
+          timer = 'cold';
           clearInterval(coldCount);
-          alarm('cold');
+          ready();
         }
       };
     },
@@ -277,6 +286,11 @@ var UIController = (function() {
 
     closeInstructions: function() {
       document.getElementById('instructions_modal').style.display = 'none';
+    },
+
+    toggleSound: function() {
+      audio = !audio;
+      console.log(audio);
     }
 
   }
@@ -301,6 +315,7 @@ var controller = (function(dataCtrl, UICtrl) {
     document.getElementById('reset').addEventListener('click', reset);
     document.getElementById('instructions_btn').addEventListener('click', UICtrl.openInstructions);
     document.getElementsByClassName("close")[0].addEventListener('click', UICtrl.closeInstructions);
+    document.getElementById('un_mute').addEventListener('click', UICtrl.toggleSound);
   };
 
   var changeImage = function() {

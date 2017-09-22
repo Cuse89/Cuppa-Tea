@@ -71,48 +71,62 @@
               </select>
       </div>
       <br>
-      <div>
+      <div id="checkboxes">
         <div id="select_timer">
-          <input type="radio" id="brew" name="timer" value="brew" checked> Brew timer<br>
-          <input type="radio" id="cold" name="timer" value="cold"> It's getting cold reminder<br>
-          <input type="radio" id="both" name="timer" value="both"> Both
+          <input type="radio" id="brew" name="timer" value="brew" checked>
+          <label for="brew">Brew Timer</label><br>
+          <input type="radio" id="cold" name="timer" value="cold">
+          <label for="cold">It's getting cold reminder</label><br>
+          <input type="radio" id="both" name="timer" value="both">
+          <label for="both">Both</label>
         </div>
-        <br>
+        <div id="sound">
+          <input type="checkbox" name="un_mute" id="un_mute">
+          <label for="un_mute" class="unmute">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/3/3f/Mute_Icon.svg" class="sound" alt="Mute_Icon.svg" title="Mute icon">
+          </label>
+          <label for="un_mute" class="mute">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" class="sound" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
+          </label>
+        </div>
       </div>
-      <button id="set_timer">Set Timer</button>
-      <button id="reset">Reset Timer</button>
+      <div id="timer_btns">
+        <button id="set_timer">Set Timer</button>
+        <button id="reset">Reset Timer</button>
+      </div>
     </div>
     <div class="w3-col s12 m6 l4 w3-hide-small w3-hide-medium" id="notepad_wrapper">
-      <img id="notepad" src="notepad.png" />
+      <img id="notepad" src="notepad.png" alt="notepad" />
     </div>
     <div class="w3-col s8 m8 l4 w3-hide-small" id="tea_wrapper">
-        <div class="cup"></div>
-        <div class="tea"></div>
-        <div class="handle"></div>
-        <div class="ripple"></div>
-        <div class="spill" id="spill1"></div>
-        <div class="spill" id="spill2"></div>
-        <div class="spill" id="spill3"></div>
-        <div class="spill" id="spill4"></div>
-        <div class="spill" id="spill5"></div>
+      <div class="cup"></div>
+      <div class="tea"></div>
+      <div class="handle"></div>
+      <div class="ripple"></div>
+      <div class="spill" id="spill1"></div>
+      <div class="spill" id="spill2"></div>
+      <div class="spill" id="spill3"></div>
+      <div class="spill" id="spill4"></div>
+      <div class="spill" id="spill5"></div>
     </div>
-    </div>
-    <div id="progress_bars">
-      <div id="brew_wrapper">
-        <div class="bar"></div>
-        <h4 class="w3-center w3-hide-small" id="brew_display"></h4>
-      </div>
-      <div id="cold_wrapper">
-        <div class="bar"></div>
-        <h4 class="w3-center w3-hide-small" id="cold_display"></h4>
-      </div>
-    </div>
-    <div id="instructions_modal">
-  <div id="modal_content">
-    <span class="close">&times;</span>
-    <p>Welcome to the Cuppa Tea app<br><br>Poured a cuppa tea?<br><br>Select the options and click Set Timer.<br><br>Brew Timer - Let it brew and cool a little, I've calculated the moment for your perfect sip. (That's the blue bar)<br><br>It's getting cold reminder - I can also remind you if it's going to get cold. (That's the green bar)<br><br>Enjoy!</p>
   </div>
-</div>
+  <div id="progress_bars">
+    <div id="brew_wrapper">
+      <div class="bar"></div>
+      <h4 class="w3-center w3-hide-small" id="brew_display"></h4>
+    </div>
+    <div id="cold_wrapper">
+      <div class="bar"></div>
+      <h4 class="w3-center w3-hide-small" id="cold_display"></h4>
+    </div>
+  </div>
+  <div id="instructions_modal">
+    <div id="modal_content">
+      <span class="close">&times;</span>
+      <p>Welcome to the Cuppa Tea app<br><br>Poured a cuppa tea?<br><br>Select the options and click Set Timer.<br><br>Brew Timer - Let it brew and cool a little, I've calculated the moment for your perfect sip. (That's the blue bar)<br><br>It's getting
+        cold reminder - I can also remind you if it's going to get cold. (That's the green bar)<br><br>Enjoy!</p>
+    </div>
+  </div>
   <script src="cuppaTea.js"></script>
 </body>
 
