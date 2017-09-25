@@ -9,7 +9,7 @@ Modules -
 
 // Data Controller
 
-let dataController = (function() {
+const dataController = (function() {
   let seconds;
 
   // Store timer variable in object. Brew timings and Cold timings for each secs
@@ -83,14 +83,14 @@ let dataController = (function() {
 
 ////////////////////////////////////////////////////////////////////////////////// UI Controller
 
-let UIController = (function() {
+const UIController = (function() {
   let percent, fly, brewCount, coldCount, animation, timer;
   let audio = true;
   let alertBrew = 'Your tea is served!'
   let alertCold = 'Drink Up!'
 
 
-  let changeSpilldark = function(spillClass) {
+  const changeSpilldark = function(spillClass) {
     let spillArr;
     spillArr = document.getElementsByClassName('spill');
     for (let i = 0; i < spillArr.length; i++) {
@@ -98,7 +98,7 @@ let UIController = (function() {
     }
   };
 
-  let formatTime = function(time) {
+  const formatTime = function(time) {
     let mins, secs, minsSecs, minString, secString;
     mins = Math.floor(time / 60);
     secs = time % 60;
@@ -113,15 +113,15 @@ let UIController = (function() {
     return minsSecs;
   };
 
-  let displayProgressBars = function() {
+  const displayProgressBars = function() {
     document.getElementById('progress_bars').style.display = 'block';
   };
 
-  let ready = function() {
+  const ready = function() {
     audio ? alarm() : displayAlert();
   }
 
-  let alarm = function() {
+  const alarm = function() {
     const audioBrew = new Audio('bell.mp3');
     const audioCold = new Audio('woop.mp3');
     if (timer === 'brew') {
@@ -140,7 +140,7 @@ let UIController = (function() {
 
   };
 
-  let displayAlert = function() {
+  const displayAlert = function() {
     timer === 'brew' ? alert(alertBrew) : alert(alertCold);
   }
 
@@ -301,10 +301,10 @@ let UIController = (function() {
 ////////////////////////////////////////////////////////////////////////////////// Global Controller
 
 
-let controller = (function(dataCtrl, UICtrl) {
+const controller = (function(dataCtrl, UICtrl) {
   let input, timeBrew, timeCold, brewObj, coldObj;
 
-  let setupEventListeners = function() {
+  const setupEventListeners = function() {
     let optionsArr;
     optionsArr = [].slice.call(document.getElementsByClassName('option'));
     // loops through optionsArr (array)
@@ -318,14 +318,14 @@ let controller = (function(dataCtrl, UICtrl) {
     document.getElementById('un_mute').addEventListener('click', UICtrl.toggleSound);
   };
 
-  let changeImage = function() {
+  const changeImage = function() {
     // Get field data
     inputData();
     // Display new image according to input object
     UICtrl.adjustImage(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness)
   };
 
-  let setTimers = function() {
+  const setTimers = function() {
     // Disable/ enable button
     UICtrl.disableTimerBtn();
     // Get field data. Input variable will be an object with choices selected
@@ -362,17 +362,17 @@ let controller = (function(dataCtrl, UICtrl) {
     }
   };
 
-  let reset = function() {
+  const reset = function() {
     UICtrl.enableTimerBtn();
     UICtrl.reset();
   };
 
-  let inputData = function() {
+  const inputData = function() {
     // Input variable is object according to choices
     input = UICtrl.getInput();
   };
 
-  let addVariables = function(timer) {
+  const addVariables = function(timer) {
     if (timer === 'brew') {
       brewObj = dataCtrl.addVariables(input.cupType, input.surface, input.milk, input.milkAmount, input.roomTemp, input.darkness, input.timer, 0);
     } else if (timer === 'cold') {
