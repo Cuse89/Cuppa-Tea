@@ -90,11 +90,11 @@ const UIController = (function() {
   let alertCold = 'Drink Up!'
 
 
-  const changeSpilldark = function(spillClass) {
+  const changeSpillDark = function(spillClass) {
     let spillArr;
     spillArr = document.getElementsByClassName('spill');
     for (let i = 0; i < spillArr.length; i++) {
-      spillArr[i].className = 'spill' + ' ' + spillClass;
+      spillArr[i].className = `spill ${spillClass}`;
     }
   };
 
@@ -163,11 +163,11 @@ const UIController = (function() {
         document.getElementById('milk_amount').disabled = false;
       }
       // change class names according to options
-      document.querySelector('.tea').className = 'tea' + ' ' + surface + ' ' + mlkAmount;
-      document.querySelector('.cup').className = 'cup' + ' ' + type + ' ' + surface + ' ' + dark;
-      document.querySelector('.handle').className = 'handle' + ' ' + type + ' ' + surface + ' ' + dark;
-      document.querySelector('.ripple').className = 'ripple' + ' ' + mlkAmount;
-      changeSpilldark(mlkAmount);
+      document.querySelector('.tea').className = `tea ${surface} ${mlkAmount}`;
+      document.querySelector('.cup').className = `cup ${type} ${surface} ${dark}`;
+      document.querySelector('.handle').className = `handle ${type} ${surface} ${dark}`;
+      document.querySelector('.ripple').className = `ripple ${mlkAmount}`;
+      changeSpillDark(mlkAmount);
       document.body.className = rmTmp;
     },
 
@@ -200,17 +200,17 @@ const UIController = (function() {
       percent = 0;
       ms = time * 10;
       brewCount = setInterval(frame, ms);
-      brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
+      brewDisplay.innerHTML = `Brewing... ${percent}% ready`;
       // function frame peforms each interval
       function frame() {
         percent++;
         if (percent == 100) {
-          brewDisplay.innerHTML = 'Drink Up! ' + percent * 1 + '% ready';
+          brewDisplay.innerHTML = `Drink Up! ${percent}% ready`;
           timer = 'brew';
           clearInterval(brewCount);
           ready();
         } else {
-          brewDisplay.innerHTML = 'Brewing... ' + percent * 1 + '% ready';
+          brewDisplay.innerHTML = `Brewing... ${percent}% ready`;
         }
       };
     },
@@ -218,12 +218,12 @@ const UIController = (function() {
     coldTimer: function(time) {
       let displayTime = formatTime(time);
       coldDisplay = document.getElementById('cold_display');
-      coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
+      coldDisplay.innerHTML = `It'll start getting cold in ${displayTime}`;
       coldCount = setInterval(coldCountDown, 1000);
       function coldCountDown() {
         time--;
         displayTime = formatTime(time);
-        coldDisplay.innerHTML = 'It\'ll start getting cold in ' + displayTime;
+        coldDisplay.innerHTML = `It'll start getting cold in ${displayTime}`;
         if (time === 0) {
           timer = 'cold';
           clearInterval(coldCount);
@@ -239,8 +239,8 @@ const UIController = (function() {
 
     progressBarWidthBoth: function(brew, cold) {
       displayProgressBars();
-      document.getElementById('brew_wrapper').style.width = (brew / cold) * 100 + '%';
-      document.getElementById('cold_wrapper').style.width = 100 - ((brew / cold) * 100) + '%';
+      document.getElementById('brew_wrapper').style.width = `${(brew / cold) * 100}%`;
+      document.getElementById('cold_wrapper').style.width = `${100 - (brew / cold) * 100}%`;
     },
 
     progressBarAnimate: function(time, divId) {
@@ -248,7 +248,7 @@ const UIController = (function() {
       width = document.getElementById(divId).offsetWidth;
       timeInMs = time * 1000;
       animation = document.querySelector('.bar').animate({
-        width: ['0px', width + 'px']
+        width: ['0px', `${width}px`]
       }, timeInMs)
     },
 
