@@ -1,6 +1,15 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
 html body {
   font-family: tahoma;
-  font-size: 1em;
+  font-size: 15px;
+}
+
+.category {
+  margin: 15px;
 }
 
 #dropdowns {
@@ -17,7 +26,6 @@ html body {
   left: 40px;
   top: 20px;
 }
-
 
 #tea_wrapper {
   position: relative;
@@ -65,7 +73,6 @@ button {
   padding: 10px 50px 10px 19px !important;
   width: 100%;
 }
-
 
 .cold {
   background-color: #c2c2fd;

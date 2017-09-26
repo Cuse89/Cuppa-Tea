@@ -10,7 +10,6 @@ Modules -
 // Data Controller
 
 const dataController = (function() {
-  let seconds;
 
   // Store timer variable in object. Brew timings and Cold timings for each secs
   const tea = {
@@ -56,7 +55,7 @@ const dataController = (function() {
 
   return {
     addVariables: function(type, surface, mlk, mlkAmount, rmTmp, dark, tmr, num) {
-      let timerObj = {
+      const timerObj = {
         type: tea.cupType[type][num],
         surface: tea.cupSurfaceArea[surface][num],
         milk: tea.milk[mlk][num],
@@ -70,8 +69,9 @@ const dataController = (function() {
     },
 
     calcTimer: function(obj) {
-      let time, timeSecs, timeMs;
+      let time;
       time = obj.timer - (obj.type + obj.surface + obj.milk + obj.milkAmount + obj.roomTemp + obj.darkness);
+			console.log(time);
       // time is in seconds
       return time;
     }
@@ -154,7 +154,7 @@ const UIController = (function() {
         document.querySelector('.handle').style.display = 'none';
       } else {
         document.getElementById('darkness').disabled = false;
-        document.querySelector('.handle').style.display = '';
+        document.querySelector('.handle').style.display = 'block';
       };
       if (mlk === 'none') {
         document.getElementById('milk_amount').disabled = true;
@@ -302,11 +302,13 @@ const UIController = (function() {
 
 
 const controller = (function(dataCtrl, UICtrl) {
-  let input, timeBrew, timeCold, brewObj, coldObj;
+  let input = {}
+	let timeBrew, timeCold, brewObj, coldObj;
 
   const setupEventListeners = function() {
     let optionsArr;
-    optionsArr = [].slice.call(document.getElementsByClassName('option'));
+    //The Nodelist (option) is borrowing/calling the Array slice method
+    optionsArr = Array.prototype.slice.call(document.getElementsByClassName('option'));
     // loops through optionsArr (array)
     optionsArr.forEach(function(element) {
       element.addEventListener('click', changeImage);
@@ -336,7 +338,7 @@ const controller = (function(dataCtrl, UICtrl) {
       addVariables('brew');
       // Calculate times
       timeBrew = dataCtrl.calcTimer(brewObj);
-      console.log('Brew time ' + timeBrew + ' secs');
+      console.log(`Brew time ${timeBrew} secs`);
       // Start and display first timer progress and alert when complete
       UICtrl.progressBarWidth('brew_wrapper');
       UICtrl.brewTimer(timeBrew, input.milkAmount);
@@ -354,7 +356,7 @@ const controller = (function(dataCtrl, UICtrl) {
       addVariables('cold');
       timeBrew = dataCtrl.calcTimer(brewObj);
       timeCold = dataCtrl.calcTimer(coldObj);
-      console.log('Brew time ' + timeBrew + ' secs');
+      console.log(`Brew time ${timeBrew} secs`);
       UICtrl.progressBarWidthBoth(timeBrew, timeCold)
       UICtrl.brewTimer(timeBrew, input.milkAmount);
       UICtrl.coldTimer(timeCold);
