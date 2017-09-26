@@ -9,7 +9,7 @@ brewing time according to the user's variables. A timer will then be set and ale
 The same applies for when the tea will start to become cold. This is calculated seperately as a tea with a thicker cream or more milk will
 get cold quicker to begin with, however it will then hold its heat better.
 
-I have used OOP to program the app, also the MVC framework and modules to seperate the different areas of code. Therefore each module could be used independently and they don't communicate with each other, only communicating via a controller module.
+I have used the MVC framework and modules to seperate the different areas of code. Therefore each module could be used independently and they don't communicate with each other, only communicating via a controller module.
 
 The app can also be used on a mobile, however alerts still need to be made functional.
 
