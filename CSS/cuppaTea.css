@@ -1,0 +1,397 @@
+* {
+  padding: 0;
+  margin: 0;
+}
+
+html body {
+  font-family: tahoma;
+  font-size: 15px;
+}
+
+.category {
+  margin: 15px;
+}
+
+#dropdowns {
+  position: relative;
+  left: 2%;
+  margin-right: 40px;
+  margin-bottom: 60px;
+}
+
+#notepad {
+  position: relative;
+  height: 600px;
+  width: 550px;
+  left: 40px;
+  top: 20px;
+}
+
+#tea_wrapper {
+  position: relative;
+  top: 120px;
+  width: 400px;
+  left: 150px;
+}
+
+#checkboxes {
+  width: 100%;
+  height: 80px;
+}
+
+#select_timer {
+  float: left;
+}
+
+select {
+  display: block;
+  padding: 2px 50px 2px 19px !important;
+  width: 100%;
+  height: auto !important;
+  border: 1px solid #e3e3e3;
+  border-radius: 7px;
+  background: url("https://image.ibb.co/iMeAJv/selectbox_arrow.png") right center no-repeat;
+  background-color: #fff;
+  color: #444444;
+  margin: -6px !important;
+  line-height: 20px !important;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+select:disabled {
+  color: #fff;
+}
+
+select:hover, button:hover {
+  cursor: pointer;
+}
+
+button {
+  border: 1px solid #e3e3e3;
+  padding: 10px 50px 10px 19px !important;
+  width: 100%;
+}
+
+.cold {
+  background-color: #c2c2fd;
+}
+
+.mild {
+  background-color: #ddeab2;
+}
+
+.hot {
+  background-color: #ffb6b0;
+}
+
+.tea {
+  z-index: 1;
+  top: 26px;
+  left: 26px;
+  position: absolute;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+}
+
+.spill {
+  z-index: 0;
+  position: absolute;
+  border-radius: 50%;
+}
+
+#spill1 {
+  width: 140px;
+  height: 140px;
+  top: 210px;
+  left: 157px;
+}
+
+#spill2 {
+  width: 120px;
+  height: 120px;
+  top: 216px;
+  left: 70px;
+}
+
+#spill3 {
+  width: 80px;
+  height: 80px;
+  top: 166px;
+  left: 200px;
+}
+
+#spill4 {
+  width: 50px;
+  height: 50px;
+  top: 365px;
+  left: 100px;
+}
+
+#spill5 {
+  width: 20px;
+  height: 20px;
+  top: 422px;
+  left: 143px;
+}
+
+#spill6 {
+  width: 30px;
+  height: 30px;
+  top: 130px;
+  left: -140px;
+}
+
+#spill7 {
+  width: 80px;
+  height: 80px;
+  top: 110px;
+  left: -70px;
+}
+
+.tea.average {
+  background: #ca843b;
+  box-shadow: 0 0 0 10px #d0914f, 0 0 0 35px #c5792a;
+}
+
+.tea.lots {
+  background: #f5c468;
+  box-shadow: 0 0 0 10px #f7ce81, 0 0 0 35px #fbc155;
+}
+
+.tea.little {
+  background: #94612c;
+  box-shadow: 0 0 0 10px #bb8246, 0 0 0 35px #754818;
+}
+
+.tea.none {
+  background: #23170a;
+  box-shadow: 0 0 0 10px #3c2915, 0 0 0 35px #1d1206;
+}
+
+.spill.average {
+  background: #ca843b;
+}
+
+.spill.lots {
+  background: #f5c468;
+}
+
+.spill.little {
+  background: #94612c;
+}
+
+.spill.none {
+  background: #23170a;
+}
+
+.cup {
+  z-index: 4;
+  top: 0px;
+  left: 2px;
+  margin: auto;
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  border-radius: 50%;
+  box-shadow: 0 0 0 40px;
+  opacity: 1;
+}
+
+.cup.glass {
+  color: #bbc0c5;
+  opacity: 0.8;
+  box-shadow: 0 0 0 25px;
+}
+
+.cup.teaCup {
+  box-shadow: 0 0 0 15px;
+}
+
+.handle {
+  z-index: 4;
+  position: absolute;
+  background: #597796;
+  height: 50px;
+  width: 80px;
+  top: 103px;
+  left: 255px;
+  border-radius: 5px;
+  opacity: 1;
+}
+
+.handle.glass {
+  background: #bbc0c5;
+  opacity: 0.8;
+}
+
+.handle.small {
+  left: 235px;
+}
+
+.handle.large {
+  left: 275px;
+}
+
+.ripple {
+  z-index: 5;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  position: absolute;
+  border: 1px solid #c5792a;
+  left: 116px;
+  top: 116px;
+  /* a little bit of animation */
+  animation: rings 6s ease-out infinite;
+}
+
+@keyframes rings {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(11);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(11);
+    opacity: 0;
+  }
+}
+
+.small {
+  transform: scale(0.9);
+}
+
+.medium {
+  transform: scale(1);
+}
+
+.large {
+  transform: scale(1.1);
+}
+
+.ripple.lots {
+  border-color: #fbc155;
+}
+
+.ripple.little {
+  border-color: #754818;
+}
+
+.ripple.none {
+  border-color: #1d1206;
+}
+
+.white {
+  color: #efe2d6;
+}
+
+.black {
+  color: #2d2d2d;
+}
+
+.mediumDarkness {
+  color: #597796;
+}
+
+.handle.white {
+  background-color: #efe2d6;
+}
+
+.handle.black {
+  background-color: #2d2d2d;
+}
+
+.handle.mediumDarkness {
+  background-color: #597796;
+}
+
+#progress_bars {
+  bottom: 0;
+  position: fixed;
+  width: 100%;
+  display: none;
+}
+
+#brew_wrapper {
+  height: 50px;
+  background-color: #94c3c3;
+  float: left;
+}
+
+#cold_wrapper {
+  height: 50px;
+  background-color: #589c58;
+  float: right;
+}
+
+.bar {
+  height: 50px;
+  background-color: #141448;
+  position: absolute;
+  opacity: 0.5;
+}
+
+#instructions_btn {
+  margin-top: 10px;
+}
+
+#instructions_modal {
+  display: none;
+  position: fixed;
+  z-index: 6;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+}
+
+#modal_content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.close {
+  color: #aaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: black;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.sound {
+  width: 50px;
+  float: right;
+  cursor: pointer;
+}
+
+input#un_mute {
+  display: none;
+}
+
+.unmute img {
+  display: none;
+}
+
+input#un_mute:checked ~ .unmute img {
+  display: initial;
+}
+
+input#un_mute:checked ~ .mute img {
+  display: none;
+}

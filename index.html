@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <link type="text/css" rel="stylesheet" href="css/cuppaTea.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <link rel="stylesheet" href="css/normalize.css">
+  <title>Cuppa Tea</title>
+</head>
+
+<body>
+  <div class="w3-row">
+    <div class="w3-col s11 m4 l3" id="dropdowns">
+      <div class="dropdown">
+        <button class="w3-hide-large" id="instructions_btn">Click here for instructions</button>
+        <p class="category">Type of cup:</p>
+        <select class="option" id="cup_type">
+<!--option values must have same string as within tea object in jscript -->
+              <option value="mug">Mug</option>
+              <option value="glass">Glass</option>
+              <option value="teaCup">Tea cup</option>
+            </select>
+      </div>
+      <div class="dropdown">
+        <p class="category">Surface area size of cup:</p>
+        <select class="option" id="surface">
+              <option value="small">Small</option>
+              <option selected value="medium">Medium</option>
+              <option value="large">Large</option>
+            </select>
+      </div>
+      <div class="dropdown">
+        <p class="category">Darkness of cup:</p>
+        <select class="option" id="darkness">
+            <option value="mediumDarkness">Medium darkness</option>
+            <option value="white">White</option>
+            <option value="black">Black</option>
+          </select>
+      </div>
+      <div class="dropdown">
+        <p class="category">Milk:</p>
+            <select class="option" id="milk">
+                <option value="none">None</option>
+                <option value="skimmed">Skimmed</option>
+                <option value="semi">Semi-skimmed</option>
+                <option value="whole">Whole</option>
+                <option value="single">Single cream</option>
+                <option value="double">Double cream</option>
+                <option value="almond">Almond milk</option>
+                <option value="coconut">Coconut milk</option>
+                <option value="soya">Soya milk</option>
+              </select>
+      </div>
+      <div class="dropdown">
+        <p class="category">Milk amount:</p>
+        <select class="option" id="milk_amount">
+                <option value="little">Little amount</option>
+                <option value="average">Average amount</option>
+                <option value="lots">Lots</option>
+                <option selected value="none">None</option>
+              </select>
+      </div>
+      <div class="dropdown">
+        <p class="category">Room temperature:</p>
+        <select class="option" id="room_temp">
+                <option value="cold">Cold</option>
+                <option selected value="mild">Mild</option>
+                <option value="hot">Hot</option>
+              </select>
+      </div>
+      <br>
+      <div id="checkboxes">
+        <div id="select_timer">
+          <input type="radio" id="brew" name="timer" value="brew" checked>
+          <label for="brew">Brew Timer</label><br>
+          <input type="radio" id="cold" name="timer" value="cold">
+          <label for="cold">It's getting cold reminder</label><br>
+          <input type="radio" id="both" name="timer" value="both">
+          <label for="both">Both</label>
+        </div>
+        <div id="sound">
+          <input type="checkbox" name="un_mute" id="un_mute">
+          <label for="un_mute" class="unmute">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/3/3f/Mute_Icon.svg" class="sound" alt="Mute_Icon.svg" title="Mute icon">
+          </label>
+          <label for="un_mute" class="mute">
+            <img src="http://upload.wikimedia.org/wikipedia/commons/2/21/Speaker_Icon.svg" class="sound" alt="Speaker_Icon.svg" title="Unmute/speaker icon">
+          </label>
+        </div>
+      </div>
+      <div id="timer_btns">
+        <button id="set_timer">Set Timer</button>
+        <button id="reset">Reset Timer</button>
+      </div>
+    </div>
+    <div class="w3-col s12 m6 l4 w3-hide-small w3-hide-medium" id="notepad_wrapper">
+      <img id="notepad" src="images/notepad.png" alt="notepad" />
+    </div>
+    <div class="w3-col s8 m8 l4 w3-hide-small" id="tea_wrapper">
+      <div class="cup"></div>
+      <div class="tea"></div>
+      <div class="handle"></div>
+      <div class="ripple"></div>
+      <div class="spill" id="spill1"></div>
+      <div class="spill" id="spill2"></div>
+      <div class="spill" id="spill3"></div>
+      <div class="spill" id="spill4"></div>
+      <div class="spill" id="spill5"></div>
+    </div>
+  </div>
+  <div id="progress_bars">
+    <div id="brew_wrapper">
+      <div class="bar"></div>
+      <h4 class="w3-center w3-hide-small" id="brew_display"></h4>
+    </div>
+    <div id="cold_wrapper">
+      <div class="bar"></div>
+      <h4 class="w3-center w3-hide-small" id="cold_display"></h4>
+    </div>
+  </div>
+  <div id="instructions_modal">
+    <div id="modal_content">
+      <span class="close">&times;</span>
+      <p>Welcome to the Cuppa Tea app<br><br>Poured a cuppa tea?<br><br>Select the options and click Set Timer.<br><br>Brew Timer - Let it brew and cool a little, I've calculated the moment for your perfect sip. (That's the blue bar)<br><br>It's getting
+        cold reminder - I can also remind you if it's going to get cold. (That's the green bar)<br><br>Enjoy!</p>
+    </div>
+  </div>
+  <script src="javascript/cuppaTea.js"></script>
+</body>
+
+</html>
